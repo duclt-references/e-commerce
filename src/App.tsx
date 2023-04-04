@@ -1,5 +1,5 @@
-import Counter from "./Counter"
-import "./style.scss"
+import Counter from "./Counter";
+import "./style.scss";
 
 const App = () => {
   return (
