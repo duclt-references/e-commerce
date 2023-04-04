@@ -1,3 +1,7 @@
+import Banner1 from './banner/banner_1.jpg';
+import Banner2 from './banner/banner_2.jpg';
+import Banner3 from './banner/banner_3.jpg';
+import Slide1 from './banner/slider_1.jpg';
 import Logo from './icons/logo.png';
 import ShoppingBag from './icons/shopping-bag.svg';
 import ProductImage1 from './product/product-img-1.jpg';
@@ -16,4 +20,8 @@ export {
   ProductImage4,
   ProductImage5,
   ProductImage6,
+  Slide1,
+  Banner1,
+  Banner2,
+  Banner3,
 };
