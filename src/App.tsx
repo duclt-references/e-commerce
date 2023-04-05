@@ -1,11 +1,13 @@
 import GlobalStyle from './assets/styles/global.styled';
-import Home from './pages/Home';
+import { useRouteElements } from './routes/useRouteElemets';
 
 const App = () => {
+  const routeElements = useRouteElements();
+
   return (
     <>
       <GlobalStyle />
-      <Home />
+      {routeElements}
     </>
   );
 };

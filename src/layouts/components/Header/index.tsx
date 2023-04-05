@@ -5,7 +5,8 @@ import {
   ProductImage3,
   ProductImage4,
   ShoppingBag,
-} from '../../assets/images';
+} from '@/assets/images';
+import { Link } from 'react-router-dom';
 import HeaderStyle from './Header.styled';
 
 const Header = () => {
@@ -47,9 +48,9 @@ const Header = () => {
                   <a href="./about.html">Giới thiệu</a>
                 </li>
                 <li className="mlist__item">
-                  <a href="./category.html">
+                  <Link to="/collections">
                     Sản phẩm <i className="fas fa-sort-down"></i>
-                  </a>
+                  </Link>
                   <ul className="mlist__item-submenu">
                     <li>
                       <a href="./category.html">Giày Training & Gym </a>

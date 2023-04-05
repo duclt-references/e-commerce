@@ -7,12 +7,16 @@ module.exports = {
   entry: path.resolve(__dirname, '', './src/index.tsx'),
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
   mode: 'development',
   devtool: 'cheap-module-source-map',
   devServer: {
     hot: true,
     open: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -46,6 +50,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '', './build'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   plugins: [
     new ReactRefreshWebpackPlugin(),
