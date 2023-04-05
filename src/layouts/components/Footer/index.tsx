@@ -94,11 +94,11 @@ const Footer = () => {
           <div className="footer__right col-ct">
             <div className="footer__head">Đăng kí</div>
             <div className="footer__right-img">
-              <img src="./assets/images/bocongthuong.png" alt="" />
+              {/* <img src="./assets/images/bocongthuong.png" alt="" /> */}
             </div>
             <div className="footer__head footer__right-head">Thanh toán</div>
             <div className="footer__right-img">
-              <img src="./assets/images/payment.png" alt="" />
+              {/* <img src="./assets/images/payment.png" alt="" /> */}
             </div>
           </div>
         </div>
