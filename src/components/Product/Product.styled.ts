@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const ProductStyle = styled.div`
+export const ProductStyle = styled.div.attrs({
+  className: 'product',
+})`
   .product {
     &__img {
       display: flex;
