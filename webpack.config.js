@@ -48,44 +48,12 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /\.(s[ac]ss|css)$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              options: { sourceMap: !isProduction },
-            },
-            {
-              loader: 'sass-loader',
-              options: { sourceMap: !isProduction },
-            },
-          ],
+          test: /\.(sass|scss|css)$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
         {
-          test: /\.(png|svg|jpg|gif)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: isProduction
-                  ? 'static/media/[name].[contenthash:6].[ext]'
-                  : '[path][name].[ext]',
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(eot|ttf|woff|woff2)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: isProduction
-                  ? 'static/fonts/[name].[ext]'
-                  : '[path][name].[ext]',
-              },
-            },
-          ],
+          test: /\.(svg|eot|woff|woff2|ttf|png|jpg|gif)$/,
+          use: ['file-loader'],
         },
       ],
     },

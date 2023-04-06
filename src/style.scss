@@ -1,3 +1,5 @@
-h1 {
-  color: blue;
-}
+$fa-font-path: "@fortawesome/fontawesome-free/webfonts";
+@import 'swiper/swiper-bundle.css';
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import '@/assets/libs/animate/animate.min.css';

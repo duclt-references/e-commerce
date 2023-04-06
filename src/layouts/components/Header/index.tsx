@@ -6,6 +6,8 @@ import {
   ProductImage4,
   ShoppingBag,
 } from '@/assets/images';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import HeaderStyle from './Header.styled';
 
@@ -32,7 +34,7 @@ const Header = () => {
         <div className="container-ct">
           <div className="row-ct">
             <div className="header__icon col-ct">
-              <i className="fa-solid fa-bars"></i>
+              <FontAwesomeIcon icon={faBars} />
             </div>
             <div className="header__img col-ct">
               <a href="./index.html">
