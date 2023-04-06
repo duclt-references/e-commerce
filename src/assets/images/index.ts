@@ -3,6 +3,7 @@ import Banner1A from './banner/banner_1_a.jpg';
 import Banner2 from './banner/banner_2.jpg';
 import Banner2A from './banner/banner_2_a.jpg';
 import Banner3 from './banner/banner_3.jpg';
+import BannerDetail from './banner/bg_product_col.jpg';
 import Slide1 from './banner/slider_1.jpg';
 import Logo from './icons/logo.png';
 import ShoppingBag from './icons/shopping-bag.svg';
@@ -34,4 +35,5 @@ export {
   Post1,
   Post2,
   Post3,
+  BannerDetail,
 };

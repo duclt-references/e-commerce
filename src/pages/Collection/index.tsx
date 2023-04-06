@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/Breadcrumb';
+import Like from '@/components/Like';
 import Listing from './components/List';
-import Like from './components/Like';
 
 const Collection = () => {
   return (

@@ -3,11 +3,12 @@ import styled from 'styled-components';
 export const LikeStyle = styled.div.attrs({
   className: 'like',
 })`
+  margin-top: 5rem;
   .container-ct {
     background-image: url(https://bizweb.dktcdn.net/100/369/492/themes/741260/assets/bg_hotline.jpg?1572516554954);
     background-size: cover;
     background-position: center;
-    padding: 100px 0 90px;
+    padding: 100px 15px 90px;
   }
   .like {
     margin-top: 20px;
