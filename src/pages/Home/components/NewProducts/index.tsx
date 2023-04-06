@@ -1,16 +1,32 @@
 import Product from '@/components/Product';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Heading from '../Heading';
 import { NewProductsStyle } from './NewProducts.styled';
 
 const NewProducts = () => {
   return (
     <NewProductsStyle>
       <div className="container-ct">
-        <h2>
-          <a href="./category.html">Hàng mới về</a>
-        </h2>
+        <Heading title="Hàng mới về" path="/" />
       </div>
-      <Swiper spaceBetween={50} slidesPerView={5}>
+      <Swiper
+        spaceBetween={50}
+        slidesPerView={1}
+        breakpoints={{
+          1200: {
+            slidesPerView: 6,
+          },
+          992: {
+            slidesPerView: 4,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          543: {
+            slidesPerView: 2,
+          },
+        }}
+      >
         <SwiperSlide>
           <Product isShowSlide={false} />
         </SwiperSlide>

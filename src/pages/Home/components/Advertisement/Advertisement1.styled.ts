@@ -19,4 +19,17 @@ export const Advertisement1Style = styled.div`
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    .advertisement {
+      flex-wrap: wrap;
+      &__item {
+        width: 100%;
+        margin-bottom: 1rem;
+        a {
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
 `;

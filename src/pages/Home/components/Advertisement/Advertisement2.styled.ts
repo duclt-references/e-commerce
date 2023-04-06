@@ -13,4 +13,12 @@ export const Advertisement2Style = styled.div`
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    .advertisement {
+      flex-wrap: wrap;
+      &__item {
+        width: 100%;
+      }
+    }
+  }
 `;

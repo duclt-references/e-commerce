@@ -4,8 +4,8 @@ import { Advertisement1Style } from './Advertisement1.styled';
 const Advertisement1 = () => {
   return (
     <Advertisement1Style>
-      <div className="container-ct advertisement">
-        <div className="row-ct">
+      <div className="container-ct">
+        <div className="row-ct advertisement">
           <div className="advertisement__item col-ct">
             <a href="/">
               <img src={Banner1} alt="" />

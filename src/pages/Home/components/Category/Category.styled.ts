@@ -97,4 +97,40 @@ export const CategoryStyle = styled.div`
       background-image: url(https://bizweb.dktcdn.net/100/369/492/themes/741260/assets/bg_module_3.jpg?1594607980046);
     }
   }
+
+  @media screen and (max-width: 992px) {
+    .category {
+      &__name {
+        width: 33.33%;
+        height: 300px;
+        &-head {
+          padding: 30px;
+        }
+        &-btn {
+          margin-top: 0px;
+        }
+      }
+      &__list {
+        width: 66.67%;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .category {
+      .row-ct {
+        flex-wrap: wrap;
+      }
+      &__name {
+        width: 100%;
+        height: 410px;
+        margin-bottom: 30px;
+        &-btn {
+          margin-top: 130px;
+        }
+      }
+      &__list {
+        width: 100%;
+      }
+    }
+  }
 `;

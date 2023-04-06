@@ -33,7 +33,18 @@ const Category = () => {
             <div className="prev-big prev-big-1 animate__animated animate__fadeInLeft">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <Swiper spaceBetween={50} slidesPerView={3}>
+            <Swiper
+              spaceBetween={50}
+              slidesPerView={1}
+              breakpoints={{
+                992: {
+                  slidesPerView: 3,
+                },
+                375: {
+                  slidesPerView: 2,
+                },
+              }}
+            >
               <SwiperSlide>
                 <Product isShowSlide />
               </SwiperSlide>
