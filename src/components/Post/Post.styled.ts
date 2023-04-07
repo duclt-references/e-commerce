@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const PostStyle = styled.div.attrs({
-  className: 'post',
-})`
+export const PostStyle = styled.div`
   .post {
     &__img {
       display: flex;

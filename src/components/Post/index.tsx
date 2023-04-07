@@ -3,7 +3,7 @@ import { PostStyle } from './Post.styled';
 
 const Post = () => {
   return (
-    <PostStyle>
+    <PostStyle className="post">
       <div className="post__img">
         <a href="./news-detail.html">
           <img src={Post1} alt="" />

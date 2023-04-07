@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const LikeStyle = styled.div.attrs({
-  className: 'like',
-})`
+export const LikeStyle = styled.div`
   margin-top: 5rem;
   .container-ct {
     background-image: url(https://bizweb.dktcdn.net/100/369/492/themes/741260/assets/bg_hotline.jpg?1572516554954);

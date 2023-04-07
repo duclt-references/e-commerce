@@ -9,19 +9,20 @@ import { ProductStyle } from './Product.styled';
 
 interface IProduct {
   isShowSlide: boolean;
+  setVisible: (active: boolean) => void;
 }
 
-const Product = ({ isShowSlide }: IProduct) => {
+const Product = ({ isShowSlide, setVisible }: IProduct) => {
   return (
-    <ProductStyle>
+    <ProductStyle className="product">
       <div className="product__img">
         <span className="product__img-promotion">-17%</span>
         <a href="/" className="product__img-img">
           <img src={ProductImage1} alt="" />
         </a>
-        <a href="/" className="product__img-btn">
+        <button className="product__img-btn" onClick={() => setVisible(true)}>
           Mua ngay
-        </a>
+        </button>
       </div>
       {isShowSlide ? (
         <div className="product__slide">

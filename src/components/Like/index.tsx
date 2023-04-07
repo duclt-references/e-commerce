@@ -4,7 +4,7 @@ import { LikeStyle } from './Like.styled';
 
 const Like = () => {
   return (
-    <LikeStyle>
+    <LikeStyle className="like">
       <div className="container-ct">
         <div className="like__list col-ct">
           <div className="like__title">

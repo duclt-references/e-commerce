@@ -2,7 +2,7 @@ import { GotoTopStyle } from './GotoTop.styled';
 
 const GotoTop = () => {
   return (
-    <GotoTopStyle>
+    <GotoTopStyle className="animate__animated animate__fadeInDown">
       <i className="fas fa-angle-up"></i>
     </GotoTopStyle>
   );

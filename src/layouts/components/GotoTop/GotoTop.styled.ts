@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const GotoTopStyle = styled.div.attrs({
-  className: 'animate__animated animate__fadeInDown',
-})`
+export const GotoTopStyle = styled.div`
   display: none;
   position: fixed;
   bottom: 100px;

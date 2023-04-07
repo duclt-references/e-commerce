@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Heading from '../Heading';
 import { NewProductsStyle } from './NewProducts.styled';
 
-const NewProducts = () => {
+const NewProducts = ({ setVisible }) => {
   return (
     <NewProductsStyle>
       <div className="container-ct">
@@ -28,28 +28,28 @@ const NewProducts = () => {
         }}
       >
         <SwiperSlide>
-          <Product isShowSlide={false} />
+          <Product isShowSlide={false} setVisible={setVisible} />
         </SwiperSlide>
         <SwiperSlide>
-          <Product isShowSlide={false} />
+          <Product isShowSlide={false} setVisible={setVisible} />
         </SwiperSlide>
         <SwiperSlide>
-          <Product isShowSlide={false} />
+          <Product isShowSlide={false} setVisible={setVisible} />
         </SwiperSlide>
         <SwiperSlide>
-          <Product isShowSlide={false} />
+          <Product isShowSlide={false} setVisible={setVisible} />
         </SwiperSlide>
         <SwiperSlide>
-          <Product isShowSlide={false} />
+          <Product isShowSlide={false} setVisible={setVisible} />
         </SwiperSlide>
         <SwiperSlide>
-          <Product isShowSlide={false} />
+          <Product isShowSlide={false} setVisible={setVisible} />
         </SwiperSlide>
         <SwiperSlide>
-          <Product isShowSlide={false} />
+          <Product isShowSlide={false} setVisible={setVisible} />
         </SwiperSlide>
         <SwiperSlide>
-          <Product isShowSlide={false} />
+          <Product isShowSlide={false} setVisible={setVisible} />
         </SwiperSlide>
       </Swiper>
     </NewProductsStyle>
