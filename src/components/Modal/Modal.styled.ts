@@ -49,15 +49,16 @@ export const ModalStyle = styled.div`
       flex-direction: column;
       align-items: center;
       img {
-        width: 127px;
+        width: 200px;
         margin-top: 20px;
       }
       span {
-        font-size: 12px;
+        font-size: 1.2rem;
         margin: 10px 0;
         color: #555555;
       }
       p {
+        font-size: 1rem;
         color: #f72b3f;
         margin-bottom: 30px;
       }
@@ -96,18 +97,17 @@ export const ModalStyle = styled.div`
         }
       }
     }
-    &-close {
+    &__close {
       color: #aaa;
-      line-height: 50px;
-      font-size: 80%;
       position: absolute;
-      right: 0;
-      text-align: center;
-      top: 0;
-      width: 70px;
-      text-decoration: none;
+      right: 10px;
+      top: 10px;
+      cursor: pointer;
       &:hover {
         color: black;
+      }
+      svg {
+        font-size: 20px;
       }
     }
   }

@@ -1,36 +1,42 @@
-import { ProductImage1 } from '@/assets/images';
+import { ModalContext } from '@/contexts/modal.context';
+import { formatCurrency } from '@/utils/common';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalStyle } from './Modal.styled';
 
-interface IConfirmProps {
-  visible: boolean;
-  setVisible: (active: boolean) => void;
-}
-const Modal = ({ visible, setVisible }: IConfirmProps) => {
+const Modal = () => {
+  const { visible, setVisible, product, setProduct } = useContext(ModalContext);
+  if (product === null) return <></>;
+
+  const handleCloseModal = () => {
+    setVisible(false);
+    setProduct(null);
+  };
+
   return createPortal(
     <ModalStyle
       id="open-modal"
       className={`modal ${visible ? 'modal--visible' : 'modal--hidden'}`}
-      // style={{ visibility: visible ? 'visible' : 'hidden' }}
     >
       <div className="modal__overlay"></div>
       <div className="modal__dialog">
         <span
-          title="Close"
           className="modal__close"
-          onClick={() => setVisible(false)}
+          onClick={handleCloseModal}
           aria-hidden="true"
         >
-          Close
+          <FontAwesomeIcon icon={faTimes} />
         </span>
         <div className="modal__col">
           <div className="modal__header">
             <i className="fas fa-check"></i>Bạn vừa thêm sản phẩm vào giỏ hàng
           </div>
           <div className="modal__content--left">
-            <img src={ProductImage1} alt="" />
-            <span>Adidas NEO Men Black VS</span>
-            <p>2.500.000đ</p>
+            <img src={product.thumbnail} alt="" />
+            <span>{product.title}</span>
+            <p>{formatCurrency(product.price)}$</p>
           </div>
         </div>
         <div className="modal__col">

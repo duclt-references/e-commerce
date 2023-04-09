@@ -19,6 +19,7 @@ export const ProductStyle = styled.div`
         line-height: 35px;
         background-color: #f72b3f;
         color: white;
+        cursor: pointer;
         &:hover {
           background-color: #060085;
           color: white;

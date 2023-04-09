@@ -1,3 +1,4 @@
+import { ModalContext } from '@/contexts/modal.context';
 import { IProduct } from '@/types/product.type';
 import { formatCurrency } from '@/utils/common';
 import {
@@ -5,6 +6,7 @@ import {
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useContext } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ProductStyle } from './Product.styled';
 
@@ -14,16 +16,24 @@ interface IProductType {
 }
 
 const Product = ({ product, isShowSlide }: IProductType) => {
+  const percent = Math.round(product.discountPercentage);
+  const { setVisible, setProduct } = useContext(ModalContext);
+
+  const handleBuyNow = () => {
+    setVisible(true);
+    setProduct(product);
+  };
+
   return (
     <ProductStyle className="product">
       <div className="product__img">
-        <span className="product__img-promotion">
-          -{product.discountPercentage}%
-        </span>
+        <span className="product__img-promotion">-{percent}%</span>
         <a href="/" className="product__img-img">
           <img src={product.thumbnail} alt="" />
         </a>
-        <button className="product__img-btn">Mua ngay</button>
+        <button className="product__img-btn" onClick={handleBuyNow}>
+          Mua ngay
+        </button>
       </div>
       {isShowSlide ? (
         <div className="product__slide">
@@ -56,7 +66,7 @@ const Product = ({ product, isShowSlide }: IProductType) => {
         </div>
         <div className="product__infor-price">
           <span className="price--new">
-            {formatCurrency(product.price * product.discountPercentage)}$
+            {formatCurrency(product.price * percent)}$
           </span>
           <span className="price--old">{formatCurrency(product.price)}$</span>
         </div>
