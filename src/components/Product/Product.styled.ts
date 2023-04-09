@@ -7,7 +7,7 @@ export const ProductStyle = styled.div`
       flex-direction: column;
       justify-content: center;
       position: relative;
-      height: 282.16px;
+      height: 220px;
       &-btn {
         position: absolute;
         left: 0;
@@ -28,6 +28,7 @@ export const ProductStyle = styled.div`
       &-img {
         width: 100%;
         max-height: 100%;
+        padding: 0 4px;
         img {
           max-width: 100%;
           max-height: 100%;
@@ -71,29 +72,21 @@ export const ProductStyle = styled.div`
         height: 65px;
       }
     }
-    &__infor {
+    &__info {
+      display: block;
+      text-align: center;
       margin-top: 10px;
       &-title,
       &-branch {
         text-align: center;
+        color: #707070;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        a {
-          display: block;
-          color: #707070;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          &:hover {
-            color: #f72b3f;
-          }
-        }
+        margin-bottom: 8px;
       }
       &-branch {
-        a {
-          font-size: 13px;
-        }
+        font-size: 13px;
       }
       &-price {
         display: flex;
@@ -110,29 +103,16 @@ export const ProductStyle = styled.div`
         }
       }
       &-title {
-        a {
-          display: block;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-        }
-      }
-    }
-  }
-  @media screen and (min-width: 1950px) {
-    .product {
-      &__img {
-        img {
-          height: 100%;
-          width: auto;
-        }
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
   }
   @media screen and (max-width: 1200px) {
     .product {
       &__img {
-        height: 226px;
+        height: 180px;
         &-img {
           height: 100%;
           width: auto;
@@ -140,6 +120,7 @@ export const ProductStyle = styled.div`
         img {
           height: 100%;
           width: auto;
+          object-fit: cover;
         }
       }
       &__slide {

@@ -1,81 +1,68 @@
+import { IProduct } from '@/types/product.type';
+import { formatCurrency } from '@/utils/common';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { InformationStyle } from './Information.styled';
 
-const Information = () => {
+interface IProps {
+  product: IProduct;
+}
+
+const Information = ({ product }: IProps) => {
+  console.log(product);
+
   return (
     <InformationStyle>
       <div className="container-ct">
         <div className="row-ct information">
           <div className="information__img col-ct">
             <div className="information__img--main">
-              <a
-                className="elem"
-                href="./assets/images/1.jpg"
-                data-lcl-thumb="./assets/images/1.jpg"
-              >
-                <img src="./assets/images/1.jpg" alt="" />
-              </a>
-              <a
-                className="elem elem-none"
-                href="./assets/images/2.jpg"
-                data-lcl-thumb="./assets/images/2.jpg"
-              >
-                <img src="./assets/images/2.jpg" alt="" />
-              </a>
-              <a
-                className="elem elem-none"
-                href="./assets/images/3.jpg"
-                data-lcl-thumb="./assets/images/3.jpg"
-              >
-                <img src="./assets/images/3.jpg" alt="" />
-              </a>
-              <a
-                className="elem elem-none"
-                href="./assets/images/4.jpg"
-                data-lcl-thumb="./assets/images/4.jpg"
-              >
-                <img src="./assets/images/4.jpg" alt="" />
-              </a>
+              <img src={product.thumbnail} alt="" />
             </div>
             <div className="information__img--thumb">
               <i className="fas fa-angle-left prev-big-img animate__animated animate__fadeInLeft"></i>
-              <div className="swiper-container swiper-thumb">
-                <div className="swiper-wrapper">
-                  <div className="swiper-slide">
-                    <img src="./assets/images/1.jpg" alt="" />
-                  </div>
-                  <div className="swiper-slide">
-                    <img src="./assets/images/2.jpg" alt="" />
-                  </div>
-                  <div className="swiper-slide">
-                    <img src="./assets/images/3.jpg" alt="" />
-                  </div>
-                  <div className="swiper-slide">
-                    <img src="./assets/images/4.jpg" alt="" />
-                  </div>
-                </div>
-              </div>
+              <Swiper
+                spaceBetween={50}
+                slidesPerView={1}
+                breakpoints={{
+                  992: {
+                    slidesPerView: 4,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                  },
+                  480: {
+                    slidesPerView: 2,
+                  },
+                }}
+              >
+                {product.images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img src={image} alt="" />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
               <i className="fas fa-angle-right  next-big-img animate__animated animate__fadeInLeft"></i>
             </div>
           </div>
           <div className="information__info col-ct">
-            <div className="information__info-head">
-              Adidas White Stan Smith
-            </div>
+            <div className="information__info-head">{product.title}</div>
             <div className="information__info-branch">
               <div className="branch">
                 <span>Thương hiệu:</span>
-                <span>Adidas</span>
+                <span>{product.brand}</span>
               </div>
               <div className="branch">
                 <span>Mã sản phẩm:</span>
-                <span>LTD123</span>
+                <span>{product.id}</span>
               </div>
             </div>
             <div className="information__info-describle">
-              Mô tả đang cập nhật
+              {product.description}
             </div>
-            <div className="information__info-price">2.500.000₫</div>
-            <div className="information__info-size">
+            <div className="information__info-price">
+              {formatCurrency(product.price)}$
+            </div>
+            {/* <div className="information__info-size">
               <div className="size-head">Kích thước</div>
               <div className="size-list">
                 <label>
@@ -102,7 +89,7 @@ const Information = () => {
                   <input type="radio" name="color" />
                 </label>
               </div>
-            </div>
+            </div> */}
             <div className="information__info-number">
               <div className="number-count">
                 <span className="num-decrease">

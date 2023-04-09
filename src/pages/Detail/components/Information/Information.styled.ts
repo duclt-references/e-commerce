@@ -31,6 +31,9 @@ export const InformationStyle = styled.div`
         margin-top: 20px;
         padding: 0 20px;
         position: relative;
+        .swiper-slide {
+          height: auto;
+        }
         i {
           display: none;
           position: absolute;
@@ -54,7 +57,9 @@ export const InformationStyle = styled.div`
         }
         img {
           width: 96px;
+          object-fit: cover;
           max-width: 100%;
+          height: 100%;
         }
       }
     }

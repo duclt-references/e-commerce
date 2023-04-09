@@ -1,6 +1,6 @@
 export const path = {
   home: '/',
   products: '/products',
-  productDetail: ':nameId',
+  productDetail: '/:slug',
   profile: '/user/profile',
 };

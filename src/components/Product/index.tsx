@@ -1,12 +1,13 @@
 import { ModalContext } from '@/contexts/modal.context';
 import { IProduct } from '@/types/product.type';
-import { formatCurrency } from '@/utils/common';
+import { convertToSlug, formatCurrency } from '@/utils/common';
 import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ProductStyle } from './Product.styled';
 
@@ -18,6 +19,7 @@ interface IProductType {
 const Product = ({ product, isShowSlide }: IProductType) => {
   const percent = Math.round(product.discountPercentage);
   const { setVisible, setProduct } = useContext(ModalContext);
+  const slug = convertToSlug(product.title, product.id);
 
   const handleBuyNow = () => {
     setVisible(true);
@@ -28,9 +30,9 @@ const Product = ({ product, isShowSlide }: IProductType) => {
     <ProductStyle className="product">
       <div className="product__img">
         <span className="product__img-promotion">-{percent}%</span>
-        <a href="/" className="product__img-img">
+        <Link to={`/${slug}`} className="product__img-img">
           <img src={product.thumbnail} alt="" />
-        </a>
+        </Link>
         <button className="product__img-btn" onClick={handleBuyNow}>
           Mua ngay
         </button>
@@ -57,20 +59,16 @@ const Product = ({ product, isShowSlide }: IProductType) => {
         <></>
       )}
 
-      <div className="product__infor">
-        <div className="product__infor-title">
-          <a href="/">{product.title}</a>
-        </div>
-        <div className="product__infor-branch">
-          <a href="/">{product.brand}</a>
-        </div>
-        <div className="product__infor-price">
+      <Link to={`/${slug}`} className="product__info">
+        <div className="product__info-title">{product.title}</div>
+        <div className="product__info-branch">{product.brand}</div>
+        <div className="product__info-price">
           <span className="price--new">
             {formatCurrency(product.price * percent)}$
           </span>
           <span className="price--old">{formatCurrency(product.price)}$</span>
         </div>
-      </div>
+      </Link>
     </ProductStyle>
   );
 };

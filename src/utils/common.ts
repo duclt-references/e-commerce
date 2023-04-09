@@ -11,3 +11,19 @@ export function formatNumberToSocialStyle(value: number) {
     .replace('.', ',')
     .toLowerCase();
 }
+
+export function convertToSlug(name: string, id: number) {
+  return (
+    name
+      .toLowerCase()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]+/g, '') +
+    '-' +
+    id
+  );
+}
+
+export function getIdFromSlug(slug: string) {
+  const arr = slug.split('-');
+  return arr[arr.length - 1];
+}
