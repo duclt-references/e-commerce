@@ -1,4 +1,5 @@
-import { ProductImage1, ProductImage2, ProductImage3 } from '@/assets/images';
+import { IProduct } from '@/types/product.type';
+import { formatCurrency } from '@/utils/common';
 import {
   faChevronLeft,
   faChevronRight,
@@ -7,22 +8,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ProductStyle } from './Product.styled';
 
-interface IProduct {
-  isShowSlide: boolean;
-  setVisible: (active: boolean) => void;
+interface IProductType {
+  product: IProduct;
+  isShowSlide: false;
 }
 
-const Product = ({ isShowSlide, setVisible }: IProduct) => {
+const Product = ({ product, isShowSlide }: IProductType) => {
   return (
     <ProductStyle className="product">
       <div className="product__img">
-        <span className="product__img-promotion">-17%</span>
+        <span className="product__img-promotion">
+          -{product.discountPercentage}%
+        </span>
         <a href="/" className="product__img-img">
-          <img src={ProductImage1} alt="" />
+          <img src={product.thumbnail} alt="" />
         </a>
-        <button className="product__img-btn" onClick={() => setVisible(true)}>
-          Mua ngay
-        </button>
+        <button className="product__img-btn">Mua ngay</button>
       </div>
       {isShowSlide ? (
         <div className="product__slide">
@@ -30,26 +31,13 @@ const Product = ({ isShowSlide, setVisible }: IProduct) => {
             <FontAwesomeIcon icon={faChevronLeft} />
           </div>
           <Swiper spaceBetween={50} slidesPerView={3}>
-            <SwiperSlide>
-              <div className="swiper-slide product__slide-img">
-                <img src={ProductImage1} alt="" />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="swiper-slide product__slide-img">
-                <img src={ProductImage2} alt="" />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="swiper-slide product__slide-img">
-                <img src={ProductImage3} alt="" />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="swiper-slide product__slide-img">
-                <img src={ProductImage1} alt="" />
-              </div>
-            </SwiperSlide>
+            {product.images.map((image, index) => (
+              <SwiperSlide key={index}>
+                <div className="swiper-slide product__slide-img">
+                  <img src={image} alt="" />
+                </div>
+              </SwiperSlide>
+            ))}
           </Swiper>
           <div className="next-small-1">
             <FontAwesomeIcon icon={faChevronRight} />
@@ -61,14 +49,16 @@ const Product = ({ isShowSlide, setVisible }: IProduct) => {
 
       <div className="product__infor">
         <div className="product__infor-title">
-          <a href="/">Adidas NEO Men White</a>
+          <a href="/">{product.title}</a>
         </div>
         <div className="product__infor-branch">
-          <a href="/">Adidas</a>
+          <a href="/">{product.brand}</a>
         </div>
         <div className="product__infor-price">
-          <span className="price--new">2.100.000₫</span>
-          <span className="price--old">2.500.000₫</span>
+          <span className="price--new">
+            {formatCurrency(product.price * product.discountPercentage)}$
+          </span>
+          <span className="price--old">{formatCurrency(product.price)}$</span>
         </div>
       </div>
     </ProductStyle>

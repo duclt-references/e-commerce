@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Advertisement1 from './components/Advertisement/Advertisement1';
 import Advertisement2 from './components/Advertisement/Advertisement2';
 import Banner from './components/Banner';
-import Category from './components/Category';
 import Hotline from './components/Hotline';
 import NewProducts from './components/NewProducts';
 import News from './components/News';
@@ -18,7 +17,7 @@ const Home = () => {
       <Advertisement1 />
       <NewProducts setVisible={setVisible} />
       <Advertisement2 />
-      <Category />
+      {/* <Category /> */}
       <Hotline />
       <News />
     </>

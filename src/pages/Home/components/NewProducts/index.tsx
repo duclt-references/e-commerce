@@ -1,9 +1,31 @@
+import { productApi } from '@/apis/productApi';
 import Product from '@/components/Product';
+import { IProduct } from '@/types/product.type';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Heading from '../Heading';
 import { NewProductsStyle } from './NewProducts.styled';
 
-const NewProducts = ({ setVisible }) => {
+const NewProducts = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    const getNewProducts = async () => {
+      try {
+        const params = {
+          limit: 10,
+        };
+        const response = await productApi.getProducts(params);
+
+        setProducts(response.data?.products);
+      } catch (error) {
+        console.log('Failed to fetch product list: ', error);
+      }
+    };
+
+    getNewProducts();
+  }, []);
+
   return (
     <NewProductsStyle>
       <div className="container-ct">
@@ -27,30 +49,15 @@ const NewProducts = ({ setVisible }) => {
           },
         }}
       >
-        <SwiperSlide>
-          <Product isShowSlide={false} setVisible={setVisible} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product isShowSlide={false} setVisible={setVisible} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product isShowSlide={false} setVisible={setVisible} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product isShowSlide={false} setVisible={setVisible} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product isShowSlide={false} setVisible={setVisible} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product isShowSlide={false} setVisible={setVisible} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product isShowSlide={false} setVisible={setVisible} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product isShowSlide={false} setVisible={setVisible} />
-        </SwiperSlide>
+        {products.length > 0 ? (
+          products.map((product) => (
+            <SwiperSlide key={product.id}>
+              <Product product={product} isShowSlide={false} />
+            </SwiperSlide>
+          ))
+        ) : (
+          <></>
+        )}
       </Swiper>
     </NewProductsStyle>
   );

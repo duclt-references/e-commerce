@@ -38,7 +38,7 @@ export const ProductStyle = styled.div`
         position: absolute;
         top: 0;
         right: 0;
-        width: 40px;
+        padding: 0 8px;
         height: 25px;
         z-index: 10;
         font-size: 12px;

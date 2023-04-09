@@ -1,3 +1,4 @@
+import { path } from '@/config/path';
 import MainLayout from '@/layouts/MainLayout';
 import Profile from '@/pages/Profile';
 import { Navigate, Outlet, RouteObject } from 'react-router';
@@ -14,7 +15,7 @@ const protectedRoutes: RouteObject[] = [
     element: <ProtectedRoute />,
     children: [
       {
-        path: 'profile',
+        path: path.profile,
         element: (
           <MainLayout>
             <Profile />
