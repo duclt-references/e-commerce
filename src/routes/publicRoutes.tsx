@@ -1,9 +1,12 @@
-import { RouteObject } from 'react-router';
+import { path } from '@/config/path';
+import AuthLayout from '@/layouts/AuthLayout';
 import MainLayout from '@/layouts/MainLayout';
+import Detail from '@/pages/Detail';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import { RouteObject } from 'react-router';
 import Collection from '../pages/Collection';
 import Home from '../pages/Home';
-import Detail from '@/pages/Detail';
-import { path } from '@/config/path';
 
 const publicRoutes: RouteObject[] = [
   {
@@ -20,6 +23,19 @@ const publicRoutes: RouteObject[] = [
       {
         path: path.productDetail,
         element: <Detail />,
+      },
+    ],
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: path.login,
+        element: <Login />,
+      },
+      {
+        path: path.register,
+        element: <Register />,
       },
     ],
   },

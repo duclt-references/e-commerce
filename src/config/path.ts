@@ -3,4 +3,6 @@ export const path = {
   products: '/products',
   productDetail: '/:slug',
   profile: '/user/profile',
+  login: '/login',
+  register: '/register',
 };
