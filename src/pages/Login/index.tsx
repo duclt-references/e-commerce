@@ -1,27 +1,45 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { path } from '@/config/path';
+import { Schema, schema } from '@/utils/rules';
 import { Link } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
+type TFormData = Pick<Schema, 'email' | 'password'>;
+const registerSchema = schema.pick(['email', 'password']);
 
 const Login = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<TFormData>({
+    resolver: yupResolver(registerSchema),
+  });
+  const onSubmit = (data) => console.log(data);
   return (
     <div className="register">
       <div className="register__head">Đăng Nhập</div>
       <div className="register__form">
-        <form action="" className="form">
+        <form action="" className="form" onSubmit={handleSubmit(onSubmit)}>
           <Input
-            id="email"
+            name="email"
             label="Email"
             placeholder="Email"
             type="email"
             required
+            register={register}
+            errorMessage={errors.email?.message}
           />
           <Input
-            id="password"
+            name="password"
             label="Password"
             placeholder="Password"
             type="password"
             required
+            register={register}
+            errorMessage={errors.password?.message}
           />
           <Button label="Đăng nhập" />
         </form>
