@@ -17,8 +17,6 @@ const HeaderStyle = styled.header`
       }
       span {
         color: #fff;
-        font-size: 16px;
-        font-weight: 700;
         margin: 0 7px;
       }
     }
@@ -108,7 +106,7 @@ const HeaderStyle = styled.header`
         }
       }
     }
-    &__act {
+    &__action {
       width: calc(100% * 2 / 12);
       display: flex;
       justify-content: flex-end;
@@ -116,10 +114,9 @@ const HeaderStyle = styled.header`
       &-search {
         position: relative;
         cursor: pointer;
-        & > i {
+        & > svg {
           font-size: 18px;
           margin-right: 15px;
-          margin-top: 10px;
         }
         &:hover .hsearch {
           display: block;
@@ -139,7 +136,7 @@ const HeaderStyle = styled.header`
           height: 40px;
           z-index: 10;
           line-height: 40px;
-          top: 50px;
+          top: 40px;
           right: 5px;
           box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.4);
           input {

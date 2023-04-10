@@ -6,7 +6,8 @@ import {
   ProductImage4,
   ShoppingBag,
 } from '@/assets/images';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { path } from '@/config/path';
+import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import HeaderStyle from './Header.styled';
@@ -18,14 +19,14 @@ const Header = () => {
         <div className="container-ct">
           <div className="row-ct">
             <div className="top-header__contact col-ct">
-              <a href="/">seateam2512@gmail.com</a>
+              <span>duclt@gmail.com</span>
               <span>/</span>
-              <a href="/">0123456789</a>
+              <span>0123456789</span>
             </div>
             <div className="top-header__auth col-ct">
-              <a href="./signin.html">Đăng ký</a>
+              <Link to={path.register}>Đăng ký</Link>
               <span>/</span>
-              <a href="./login.html">Đăng nhập</a>
+              <Link to={path.login}>Đăng nhập</Link>
             </div>
           </div>
         </div>
@@ -37,17 +38,17 @@ const Header = () => {
               <FontAwesomeIcon icon={faBars} />
             </div>
             <div className="header__img col-ct">
-              <a href="./index.html">
+              <Link to={path.home}>
                 <img src={Logo} alt="" />
-              </a>
+              </Link>
             </div>
             <div className="header__menu col-ct">
               <ul className="header__menu-list">
                 <li className="mlist__item mlist__item--select">
-                  <a href="./index.html">Trang chủ</a>
+                  <Link to={path.home}>Trang chủ</Link>
                 </li>
                 <li className="mlist__item">
-                  <a href="./about.html">Giới thiệu</a>
+                  <Link to={path.home}>Giới thiệu</Link>
                 </li>
                 <li className="mlist__item">
                   <Link to="/collections">
@@ -69,16 +70,16 @@ const Header = () => {
                   </ul>
                 </li>
                 <li className="mlist__item">
-                  <a href="./news.html">Tin tức</a>
+                  <Link to={path.home}>Tin tức</Link>
                 </li>
                 <li className="mlist__item">
-                  <a href="./contact.html">Liên hệ</a>
+                  <Link to={path.home}>Liên hệ</Link>
                 </li>
               </ul>
             </div>
-            <div className="header__act col-ct">
-              <div className="header__act-search">
-                <i className="fas fa-search"></i>
+            <div className="header__action col-ct">
+              <div className="header__action-search">
+                <FontAwesomeIcon icon={faSearch} />
                 <div className="hsearch">
                   <input type="text" placeholder="Tìm kiếm..." />
                   <a href="./search.html">
@@ -86,7 +87,7 @@ const Header = () => {
                   </a>
                 </div>
               </div>
-              <div className="header__act-cart">
+              <div className="header__action-cart">
                 <a href="./cart.html" className="cart-icon">
                   <img src={ShoppingBag} alt="" />
                   <span className="total-product">4</span>
