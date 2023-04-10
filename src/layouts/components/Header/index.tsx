@@ -111,7 +111,7 @@ const Header = () => {
                         <div className="clitem__infor-price">2.500.000₫</div>
                         <div className="clitem__infor-number">
                           <span className="num-decrease">-</span>
-                          <input type="number" value="1" />
+                          <input type="number" defaultValue="1" />
                           <span className="num-increase">+</span>
                         </div>
                       </div>
@@ -132,7 +132,7 @@ const Header = () => {
                         <div className="clitem__infor-price">2.500.000₫</div>
                         <div className="clitem__infor-number">
                           <span className="num-decrease">-</span>
-                          <input type="number" value="1" />
+                          <input type="number" defaultValue="1" />
                           <span className="num-increase">+</span>
                         </div>
                       </div>
@@ -153,7 +153,7 @@ const Header = () => {
                         <div className="clitem__infor-price">2.500.000₫</div>
                         <div className="clitem__infor-number">
                           <span className="num-decrease">-</span>
-                          <input type="number" value="1" />
+                          <input type="number" defaultValue="1" />
                           <span className="num-increase">+</span>
                         </div>
                       </div>
@@ -174,7 +174,7 @@ const Header = () => {
                         <div className="clitem__infor-price">2.500.000₫</div>
                         <div className="clitem__infor-number">
                           <span className="num-decrease">-</span>
-                          <input type="number" value="1" />
+                          <input type="number" defaultValue="1" />
                           <span className="num-increase">+</span>
                         </div>
                       </div>

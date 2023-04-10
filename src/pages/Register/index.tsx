@@ -1,10 +1,12 @@
+import authApi from '@/apis/authApi';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
+import HttpStatusCode from '@/config/httpStatusCode';
 import { path } from '@/config/path';
 import { Schema, schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type TFormData = Pick<Schema, 'email' | 'password' | 'name' | 'phone'>;
 const registerSchema = schema.pick(['email', 'password', 'name', 'phone']);
@@ -17,7 +19,20 @@ const Register = () => {
   } = useForm<TFormData>({
     resolver: yupResolver(registerSchema),
   });
-  const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = (data: TFormData) => {
+    try {
+      const response = authApi.register(data);
+      response.then((res) => {
+        if (res.status === HttpStatusCode.OK) {
+          navigate(path.home);
+        }
+      });
+    } catch (error) {
+      console.error('Register not successfully !!!');
+    }
+  };
 
   return (
     <div className="register">
