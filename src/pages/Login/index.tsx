@@ -1,10 +1,11 @@
+import authApi from '@/apis/authApi';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { path } from '@/config/path';
 import { Schema, schema } from '@/utils/rules';
-import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 type TFormData = Pick<Schema, 'email' | 'password'>;
 const registerSchema = schema.pick(['email', 'password']);
@@ -17,7 +18,21 @@ const Login = () => {
   } = useForm<TFormData>({
     resolver: yupResolver(registerSchema),
   });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data: TFormData) => {
+    console.log(data);
+
+    try {
+      const response = authApi.login({
+        username: 'kminchelle',
+        password: '0lelplR',
+      });
+      response.then((res) => {
+        console.log(res);
+      });
+    } catch (error) {
+      console.error('Login not successfully !!!');
+    }
+  };
   return (
     <div className="register">
       <div className="register__head">Đăng Nhập</div>
