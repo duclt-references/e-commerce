@@ -8,8 +8,6 @@ interface IProps {
 }
 
 const Information = ({ product }: IProps) => {
-  console.log(product);
-
   return (
     <InformationStyle>
       <div className="container-ct">
