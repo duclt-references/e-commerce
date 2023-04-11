@@ -17,7 +17,6 @@ import HeaderStyle from './Header.styled';
 const Header = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const currentUser = useSelector(selectCurrentUser);
-  console.log(isLoggedIn, currentUser);
 
   return (
     <HeaderStyle>

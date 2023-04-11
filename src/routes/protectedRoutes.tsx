@@ -1,12 +1,14 @@
 import { path } from '@/config/path';
 import MainLayout from '@/layouts/MainLayout';
 import Profile from '@/pages/Profile';
+import { selectIsLoggedIn } from '@/store/auth/authSlice';
+import { useSelector } from 'react-redux';
 import { Navigate, Outlet, RouteObject } from 'react-router';
 
-const isAuthenticate = true;
-
 function ProtectedRoute() {
-  return isAuthenticate ? <Outlet /> : <Navigate to="/login" />;
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 }
 
 const protectedRoutes: RouteObject[] = [

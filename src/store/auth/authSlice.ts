@@ -1,4 +1,5 @@
 import IUser from '@/types/user.type';
+import { getAccessTokenFromLS, getCurrentUserFromLS } from '@/utils/auth';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '..';
 import { login, register } from './authAction';
@@ -12,9 +13,9 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  isLoggedIn: false,
+  isLoggedIn: Boolean(getAccessTokenFromLS()),
   logging: false,
-  currentUser: null,
+  currentUser: getCurrentUserFromLS(),
 };
 
 const authSlice = createSlice({
@@ -27,11 +28,13 @@ const authSlice = createSlice({
       state.logging = true;
       state.error = null;
     });
-    builder.addCase(register.fulfilled, (state, action) => {
+    builder.addCase(register.fulfilled, (state, { payload }) => {
       state.logging = false;
       state.isLoggedIn = true;
-      state.currentUser = action.payload;
-      state.accessToken = action.payload.token;
+      state.currentUser = payload;
+      state.accessToken = payload.token;
+      localStorage.setItem('access_token', payload.token);
+      localStorage.setItem('current_user', JSON.stringify(payload));
     });
     builder.addCase(register.rejected, (state) => {
       state.logging = false;
@@ -43,11 +46,14 @@ const authSlice = createSlice({
       state.logging = true;
       state.error = null;
     });
-    builder.addCase(login.fulfilled, (state, action) => {
+    builder.addCase(login.fulfilled, (state, { payload }) => {
+      console.log(payload);
       state.logging = false;
       state.isLoggedIn = true;
-      state.currentUser = action.payload;
-      state.accessToken = action.payload.token;
+      state.currentUser = payload;
+      state.accessToken = payload.token;
+      localStorage.setItem('access_token', payload.token);
+      localStorage.setItem('current_user', JSON.stringify(payload));
     });
     builder.addCase(login.rejected, (state) => {
       state.logging = false;
