@@ -7,12 +7,18 @@ import {
   ShoppingBag,
 } from '@/assets/images';
 import { path } from '@/config/path';
+import { selectCurrentUser, selectIsLoggedIn } from '@/store/auth/authSlice';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import HeaderStyle from './Header.styled';
 
 const Header = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const currentUser = useSelector(selectCurrentUser);
+  console.log(isLoggedIn, currentUser);
+
   return (
     <HeaderStyle>
       <div className="top-header">
@@ -23,11 +29,17 @@ const Header = () => {
               <span>/</span>
               <span>0123456789</span>
             </div>
-            <div className="top-header__auth col-ct">
-              <Link to={path.register}>Đăng ký</Link>
-              <span>/</span>
-              <Link to={path.login}>Đăng nhập</Link>
-            </div>
+            {isLoggedIn ? (
+              <div className="top-header__auth col-ct">
+                <span>Xin chao, {currentUser?.email}</span>
+              </div>
+            ) : (
+              <div className="top-header__auth col-ct">
+                <Link to={path.register}>Đăng ký</Link>
+                <span>/</span>
+                <Link to={path.login}>Đăng nhập</Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

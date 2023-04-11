@@ -1,13 +1,17 @@
-import authApi from '@/apis/authApi';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { path } from '@/config/path';
-import { Schema, schema } from '@/utils/rules';
+import { useAppDispatch } from '@/hooks/useRedux';
+import { login } from '@/store/auth/authAction';
+import { selectCurrentUser } from '@/store/auth/authSlice';
+import { ILogin } from '@/types/auth.type';
+import { schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
-type TFormData = Pick<Schema, 'email' | 'password'>;
 const registerSchema = schema.pick(['email', 'password']);
 
 const Login = () => {
@@ -15,23 +19,26 @@ const Login = () => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<TFormData>({
+  } = useForm<ILogin>({
     resolver: yupResolver(registerSchema),
   });
-  const onSubmit = (data: TFormData) => {
-    console.log(data);
+  const dispatch = useAppDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
 
-    try {
-      const response = authApi.login({
+  useEffect(() => {
+    if (currentUser) {
+      navigate(path.home);
+    }
+  }, [navigate, currentUser]);
+
+  const onSubmit = () => {
+    dispatch(
+      login({
         username: 'kminchelle',
         password: '0lelplR',
-      });
-      response.then((res) => {
-        console.log(res);
-      });
-    } catch (error) {
-      console.error('Login not successfully !!!');
-    }
+      })
+    );
   };
   return (
     <div className="register">
@@ -45,7 +52,7 @@ const Login = () => {
             type="email"
             required
             register={register}
-            errorMessage={errors.email?.message}
+            errorMessage={errors.username?.message}
           />
           <Input
             name="password"
@@ -56,7 +63,7 @@ const Login = () => {
             register={register}
             errorMessage={errors.password?.message}
           />
-          <Button label="Đăng nhập" />
+          <Button label="Đăng nhập" type="submit" />
         </form>
       </div>
       <div className="register__note">

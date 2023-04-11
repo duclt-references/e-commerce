@@ -75,7 +75,7 @@ const Register = () => {
             register={register}
             errorMessage={errors.password?.message}
           />
-          <Button label="Đăng ký" />
+          <Button label="Đăng ký" type="submit" />
         </form>
       </div>
       <div className="register__note">
