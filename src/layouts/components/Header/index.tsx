@@ -7,7 +7,12 @@ import {
   ShoppingBag,
 } from '@/assets/images';
 import { path } from '@/config/path';
-import { selectCurrentUser, selectIsLoggedIn } from '@/store/auth/authSlice';
+import { useAppDispatch } from '@/hooks/useRedux';
+import {
+  logout,
+  selectCurrentUser,
+  selectIsLoggedIn,
+} from '@/store/auth/authSlice';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
@@ -17,7 +22,11 @@ import HeaderStyle from './Header.styled';
 const Header = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <HeaderStyle>
       <div className="top-header">
@@ -30,12 +39,20 @@ const Header = () => {
             </div>
             {isLoggedIn ? (
               <div className="top-header__auth col-ct">
-                <span>Xin chao, {currentUser?.email}</span>
+                <Link to={path.profile}>Xin chao, {currentUser?.email}</Link>
+                <span className="slash">/</span>
+                <span
+                  className="logout"
+                  onClick={handleLogout}
+                  aria-hidden="true"
+                >
+                  Thoát
+                </span>
               </div>
             ) : (
               <div className="top-header__auth col-ct">
                 <Link to={path.register}>Đăng ký</Link>
-                <span>/</span>
+                <span className="slash">/</span>
                 <Link to={path.login}>Đăng nhập</Link>
               </div>
             )}

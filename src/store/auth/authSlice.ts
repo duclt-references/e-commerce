@@ -21,7 +21,16 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.clear();
+      state.accessToken = undefined;
+      state.logging = false;
+      state.isLoggedIn = false;
+      state.currentUser = null;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     // ------------------ Register ------------------
     builder.addCase(register.pending, (state) => {
@@ -64,7 +73,7 @@ const authSlice = createSlice({
 });
 
 // Actions
-export const authActions = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 // Selectors
 export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;

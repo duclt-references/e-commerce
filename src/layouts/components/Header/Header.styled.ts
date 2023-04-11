@@ -17,7 +17,15 @@ const HeaderStyle = styled.header`
       }
       span {
         color: #fff;
+      }
+      .slash {
         margin: 0 7px;
+      }
+      .logout {
+        cursor: pointer;
+        &:hover {
+          color: #f72b3f;
+        }
       }
     }
   }
