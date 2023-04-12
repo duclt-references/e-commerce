@@ -1,5 +1,5 @@
-import { productApi } from '@/apis/productApi';
 import Product from '@/components/Product';
+import { productService } from '@/services/productService';
 import { IProduct } from '@/types/product.type';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,7 +15,7 @@ const NewProducts = () => {
         const params = {
           limit: 10,
         };
-        const response = await productApi.getProducts(params);
+        const response = await productService.getProducts(params);
 
         setProducts(response.data?.products);
       } catch (error) {

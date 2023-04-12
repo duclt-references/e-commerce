@@ -1,15 +1,15 @@
+import { apiPath } from '@/config/path';
 import { apiService } from '@/httpRequest';
 import { IProductListConfig } from '@/types/product.type';
 
-const PRODUCT_URL = 'products';
-
-export const productApi = {
+export const productService = {
   getProducts(params: IProductListConfig) {
-    return apiService.get(PRODUCT_URL, {
+    return apiService.get(apiPath.product, {
       params,
     });
   },
+
   getProductDetail(id: string) {
-    return apiService.get(`${PRODUCT_URL}/${id}`);
+    return apiService.get(`${apiPath.product}/${id}`);
   },
 };

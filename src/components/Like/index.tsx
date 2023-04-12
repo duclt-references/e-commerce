@@ -1,8 +1,8 @@
-import { productApi } from '@/apis/productApi';
 import Product from '@/components/Product';
 import { IProduct } from '@/types/product.type';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { productService } from '../../services/productService';
 import { LikeStyle } from './Like.styled';
 
 const Like = () => {
@@ -14,7 +14,7 @@ const Like = () => {
         const params = {
           limit: 10,
         };
-        const response = await productApi.getProducts(params);
+        const response = await productService.getProducts(params);
 
         setProducts(response.data?.products);
       } catch (error) {

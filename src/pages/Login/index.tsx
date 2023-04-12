@@ -2,8 +2,8 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { path } from '@/config/path';
 import { useAppDispatch } from '@/hooks/useRedux';
-import { login } from '@/store/auth/authAction';
-import { selectCurrentUser } from '@/store/auth/authSlice';
+import { fetchLogin } from '@/store/auth/authAction';
+import { selectIsLoggedIn } from '@/store/auth/authSlice';
 import { ILogin } from '@/types/auth.type';
 import { schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,22 +23,17 @@ const Login = () => {
     resolver: yupResolver(registerSchema),
   });
   const dispatch = useAppDispatch();
-  const currentUser = useSelector(selectCurrentUser);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentUser) {
+    if (isLoggedIn) {
       navigate(path.home);
     }
-  }, [navigate, currentUser]);
+  }, [navigate, isLoggedIn]);
 
-  const onSubmit = () => {
-    dispatch(
-      login({
-        username: 'kminchelle',
-        password: '0lelplR',
-      })
-    );
+  const onSubmit = (data: ILogin) => {
+    dispatch(fetchLogin(data));
   };
   return (
     <div className="register">
@@ -52,7 +47,7 @@ const Login = () => {
             type="email"
             required
             register={register}
-            errorMessage={errors.username?.message}
+            errorMessage={errors.email?.message}
           />
           <Input
             name="password"

@@ -12,13 +12,12 @@ export type AuthResponse = SuccessResponse<{
 export type RefreshTokenResponse = SuccessResponse<{ access_token: string }>;
 
 export interface ILogin {
-  username: string;
+  email: string;
   password: string;
 }
 
 export interface IRegister {
-  username: string;
-  password: string;
   email: string;
+  password: string;
   phone: string;
 }

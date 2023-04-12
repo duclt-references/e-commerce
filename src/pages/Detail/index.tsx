@@ -1,6 +1,6 @@
-import { productApi } from '@/apis/productApi';
 import Breadcrumb from '@/components/Breadcrumb';
 import Like from '@/components/Like';
+import { productService } from '@/services/productService';
 import { IProduct } from '@/types/product.type';
 import { getIdFromSlug } from '@/utils/common';
 import { useEffect, useState } from 'react';
@@ -18,7 +18,7 @@ const Detail = () => {
   useEffect(() => {
     const getProductDetail = async () => {
       try {
-        const response = await productApi.getProductDetail(id);
+        const response = await productService.getProductDetail(id);
         setProduct(response.data);
         setLoading(false);
       } catch (error) {

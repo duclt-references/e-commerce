@@ -22,6 +22,7 @@ import HeaderStyle from './Header.styled';
 const Header = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const currentUser = useSelector(selectCurrentUser);
+
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
@@ -39,7 +40,7 @@ const Header = () => {
             </div>
             {isLoggedIn ? (
               <div className="top-header__auth col-ct">
-                <Link to={path.profile}>Xin chao, {currentUser?.email}</Link>
+                <Link to={path.profile}>Xin chao, {currentUser?.name}</Link>
                 <span className="slash">/</span>
                 <span
                   className="logout"

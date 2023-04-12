@@ -1,21 +1,17 @@
-import authApi from '@/apis/authApi';
+import { authService } from '@/services/authService';
 import { ILogin } from '@/types/auth.type';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const login = createAsyncThunk(
+export const fetchLogin = createAsyncThunk(
   'auth/login',
-  async ({ username, password }: ILogin, { rejectWithValue }) => {
+  async ({ email, password }: ILogin, { rejectWithValue }) => {
     try {
-      const { data } = await authApi.login({
-        username,
+      const { data } = await authService.login({
+        identity: email,
         password,
       });
-
-      // store user's token in local storage
-      // localStorage.setItem('userToken', data.userToken);
       return data;
     } catch (error) {
-      // return custom error message from API if any
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
       } else {
@@ -25,18 +21,17 @@ export const login = createAsyncThunk(
   }
 );
 
-export const register = createAsyncThunk(
+export const fetchRegister = createAsyncThunk(
   'auth/register',
   async (
     data: { email: string; password: string; name: string; phone: string },
     { rejectWithValue }
   ) => {
     try {
-      const response = authApi.register(data);
+      const response = authService.register(data);
       const resData = (await response).data;
       return resData;
     } catch (error) {
-      // return custom error message from backend if present
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
       } else {

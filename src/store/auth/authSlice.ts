@@ -2,7 +2,7 @@ import IUser from '@/types/user.type';
 import { getAccessTokenFromLS, getCurrentUserFromLS } from '@/utils/auth';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '..';
-import { login, register } from './authAction';
+import { fetchLogin, fetchRegister } from './authAction';
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -33,38 +33,38 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     // ------------------ Register ------------------
-    builder.addCase(register.pending, (state) => {
+    builder.addCase(fetchRegister.pending, (state) => {
       state.logging = true;
       state.error = null;
     });
-    builder.addCase(register.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchRegister.fulfilled, (state, { payload }) => {
       state.logging = false;
       state.isLoggedIn = true;
-      state.currentUser = payload;
+      state.currentUser = payload.record;
       state.accessToken = payload.token;
       localStorage.setItem('access_token', payload.token);
-      localStorage.setItem('current_user', JSON.stringify(payload));
+      localStorage.setItem('current_user', JSON.stringify(payload.record));
     });
-    builder.addCase(register.rejected, (state) => {
+    builder.addCase(fetchRegister.rejected, (state) => {
       state.logging = false;
       state.isLoggedIn = false;
       state.error = '';
     });
     // ------------------ Login ------------------
-    builder.addCase(login.pending, (state) => {
+    builder.addCase(fetchLogin.pending, (state) => {
       state.logging = true;
       state.error = null;
     });
-    builder.addCase(login.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchLogin.fulfilled, (state, { payload }) => {
       console.log(payload);
       state.logging = false;
       state.isLoggedIn = true;
-      state.currentUser = payload;
+      state.currentUser = payload.record;
       state.accessToken = payload.token;
       localStorage.setItem('access_token', payload.token);
-      localStorage.setItem('current_user', JSON.stringify(payload));
+      localStorage.setItem('current_user', JSON.stringify(payload.record));
     });
-    builder.addCase(login.rejected, (state) => {
+    builder.addCase(fetchLogin.rejected, (state) => {
       state.logging = false;
       state.isLoggedIn = false;
       state.error = '';

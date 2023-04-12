@@ -6,3 +6,8 @@ export const path = {
   login: '/login',
   register: '/register',
 };
+
+export const apiPath = {
+  login: 'collections/users/auth-with-password',
+  product: 'collections/users/records',
+};

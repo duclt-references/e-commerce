@@ -1,8 +1,8 @@
-import authApi from '@/apis/authApi';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import HttpStatusCode from '@/config/httpStatusCode';
 import { path } from '@/config/path';
+import { authService } from '@/services/authService';
 import { Schema, schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -23,7 +23,7 @@ const Register = () => {
 
   const onSubmit = (data: TFormData) => {
     try {
-      const response = authApi.register(data);
+      const response = authService.register(data);
       response.then((res) => {
         if (res.status === HttpStatusCode.OK) {
           navigate(path.home);
