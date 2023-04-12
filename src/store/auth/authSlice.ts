@@ -56,7 +56,6 @@ const authSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fetchLogin.fulfilled, (state, { payload }) => {
-      console.log(payload);
       state.logging = false;
       state.isLoggedIn = true;
       state.currentUser = payload.record;

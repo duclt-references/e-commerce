@@ -1,6 +1,6 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
-import { path } from '@/config/path';
+import { PATH } from '@/config/path';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { fetchLogin } from '@/store/auth/authAction';
 import { selectIsLoggedIn } from '@/store/auth/authSlice';
@@ -28,7 +28,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(path.home);
+      navigate(PATH.home);
     }
   }, [navigate, isLoggedIn]);
 
@@ -62,7 +62,7 @@ const Login = () => {
         </form>
       </div>
       <div className="register__note">
-        Chưa có tài khoản, <Link to={path.register}>đăng ký tại đây</Link>
+        Chưa có tài khoản, <Link to={PATH.register}>đăng ký tại đây</Link>
       </div>
       {/* <div className="register__social">
     <span>Hoặc đăng nhập tại đây</span>

@@ -12,8 +12,8 @@ export const schema = yup.object({
   password: yup
     .string()
     .required('Password là bắt buộc')
-    .min(6, 'Độ dài từ 6 - 160 ký tự')
-    .max(160, 'Độ dài từ 6 - 30 ký tự'),
+    .min(8, 'Độ dài từ 8 - 100 ký tự')
+    .max(160, 'Độ dài từ 8 - 30 ký tự'),
   name: yup.string().trim().required('Tên là bắt buộc'),
   phone: yup
     .string()

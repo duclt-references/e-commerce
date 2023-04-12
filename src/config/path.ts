@@ -1,4 +1,4 @@
-export const path = {
+export const PATH = {
   home: '/',
   products: '/products',
   productDetail: '/:slug',
@@ -7,7 +7,9 @@ export const path = {
   register: '/register',
 };
 
-export const apiPath = {
+export const API_PATH = {
   login: 'collections/users/auth-with-password',
+  register: 'collections/users/records',
+  registerRefresh: 'collections/users/auth-refresh',
   product: 'collections/users/records',
 };

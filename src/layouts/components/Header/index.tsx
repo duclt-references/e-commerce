@@ -6,7 +6,7 @@ import {
   ProductImage4,
   ShoppingBag,
 } from '@/assets/images';
-import { path } from '@/config/path';
+import { PATH } from '@/config/path';
 import { useAppDispatch } from '@/hooks/useRedux';
 import {
   logout,
@@ -40,7 +40,7 @@ const Header = () => {
             </div>
             {isLoggedIn ? (
               <div className="top-header__auth col-ct">
-                <Link to={path.profile}>Xin chao, {currentUser?.name}</Link>
+                <Link to={PATH.profile}>Xin chao, {currentUser?.name}</Link>
                 <span className="slash">/</span>
                 <span
                   className="logout"
@@ -52,9 +52,9 @@ const Header = () => {
               </div>
             ) : (
               <div className="top-header__auth col-ct">
-                <Link to={path.register}>Đăng ký</Link>
+                <Link to={PATH.register}>Đăng ký</Link>
                 <span className="slash">/</span>
-                <Link to={path.login}>Đăng nhập</Link>
+                <Link to={PATH.login}>Đăng nhập</Link>
               </div>
             )}
           </div>
@@ -67,17 +67,17 @@ const Header = () => {
               <FontAwesomeIcon icon={faBars} />
             </div>
             <div className="header__img col-ct">
-              <Link to={path.home}>
+              <Link to={PATH.home}>
                 <img src={Logo} alt="" />
               </Link>
             </div>
             <div className="header__menu col-ct">
               <ul className="header__menu-list">
                 <li className="mlist__item mlist__item--select">
-                  <Link to={path.home}>Trang chủ</Link>
+                  <Link to={PATH.home}>Trang chủ</Link>
                 </li>
                 <li className="mlist__item">
-                  <Link to={path.home}>Giới thiệu</Link>
+                  <Link to={PATH.home}>Giới thiệu</Link>
                 </li>
                 <li className="mlist__item">
                   <Link to="/collections">
@@ -99,10 +99,10 @@ const Header = () => {
                   </ul>
                 </li>
                 <li className="mlist__item">
-                  <Link to={path.home}>Tin tức</Link>
+                  <Link to={PATH.home}>Tin tức</Link>
                 </li>
                 <li className="mlist__item">
-                  <Link to={path.home}>Liên hệ</Link>
+                  <Link to={PATH.home}>Liên hệ</Link>
                 </li>
               </ul>
             </div>

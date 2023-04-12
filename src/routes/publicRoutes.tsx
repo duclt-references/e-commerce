@@ -1,4 +1,3 @@
-import { path } from '@/config/path';
 import AuthLayout from '@/layouts/AuthLayout';
 import MainLayout from '@/layouts/MainLayout';
 import Detail from '@/pages/Detail';
@@ -7,21 +6,22 @@ import Register from '@/pages/Register';
 import { RouteObject } from 'react-router';
 import Collection from '../pages/Collection';
 import Home from '../pages/Home';
+import { PATH } from '@/config/path';
 
 const publicRoutes: RouteObject[] = [
   {
     element: <MainLayout />,
     children: [
       {
-        path: path.home,
+        path: PATH.home,
         element: <Home />,
       },
       {
-        path: path.products,
+        path: PATH.products,
         element: <Collection />,
       },
       {
-        path: path.productDetail,
+        path: PATH.productDetail,
         element: <Detail />,
       },
     ],
@@ -30,11 +30,11 @@ const publicRoutes: RouteObject[] = [
     element: <AuthLayout />,
     children: [
       {
-        path: path.login,
+        path: PATH.login,
         element: <Login />,
       },
       {
-        path: path.register,
+        path: PATH.register,
         element: <Register />,
       },
     ],

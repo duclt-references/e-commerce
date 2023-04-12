@@ -1,4 +1,4 @@
-import { path } from '@/config/path';
+import { PATH } from '@/config/path';
 import MainLayout from '@/layouts/MainLayout';
 import Profile from '@/pages/Profile';
 import { selectIsLoggedIn } from '@/store/auth/authSlice';
@@ -17,7 +17,7 @@ const protectedRoutes: RouteObject[] = [
     element: <ProtectedRoute />,
     children: [
       {
-        path: path.profile,
+        path: PATH.profile,
         element: (
           <MainLayout>
             <Profile />

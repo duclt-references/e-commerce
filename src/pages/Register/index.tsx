@@ -1,11 +1,14 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
-import HttpStatusCode from '@/config/httpStatusCode';
-import { path } from '@/config/path';
-import { authService } from '@/services/authService';
+import { PATH } from '@/config/path';
+import { useAppDispatch } from '@/hooks/useRedux';
+import { fetchRegister } from '@/store/auth/authAction';
+import { selectIsLoggedIn } from '@/store/auth/authSlice';
 import { Schema, schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 type TFormData = Pick<Schema, 'email' | 'password' | 'name' | 'phone'>;
@@ -19,16 +22,19 @@ const Register = () => {
   } = useForm<TFormData>({
     resolver: yupResolver(registerSchema),
   });
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(PATH.home);
+    }
+  }, [navigate, isLoggedIn]);
 
   const onSubmit = (data: TFormData) => {
     try {
-      const response = authService.register(data);
-      response.then((res) => {
-        if (res.status === HttpStatusCode.OK) {
-          navigate(path.home);
-        }
-      });
+      dispatch(fetchRegister(data));
     } catch (error) {
       console.error('Register not successfully !!!');
     }
@@ -79,7 +85,7 @@ const Register = () => {
         </form>
       </div>
       <div className="register__note">
-        Đã có tài khoản, <Link to={path.login}>đăng nhập tại đây</Link>
+        Đã có tài khoản, <Link to={PATH.login}>đăng nhập tại đây</Link>
       </div>
     </div>
   );

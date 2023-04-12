@@ -28,9 +28,9 @@ export const fetchRegister = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = authService.register(data);
-      const resData = (await response).data;
-      return resData;
+      const response = await authService.register(data);
+
+      return response.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
