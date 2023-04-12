@@ -2,35 +2,12 @@ export const tables = [
   {
     id: 'uyaf3q3kn8hr2gg',
     name: 'users',
-    type: 'base',
+    type: 'auth',
     system: false,
     schema: [
       {
         id: '7oetkfv0',
         name: 'name',
-        type: 'text',
-        system: false,
-        required: false,
-        options: {
-          min: null,
-          max: null,
-          pattern: '',
-        },
-      },
-      {
-        id: '4pihccxd',
-        name: 'email',
-        type: 'email',
-        system: false,
-        required: false,
-        options: {
-          exceptDomains: null,
-          onlyDomains: null,
-        },
-      },
-      {
-        id: '2w2jr2rs',
-        name: 'password',
         type: 'text',
         system: false,
         required: false,
@@ -104,7 +81,16 @@ export const tables = [
     createRule: null,
     updateRule: null,
     deleteRule: null,
-    options: {},
+    options: {
+      allowEmailAuth: true,
+      allowOAuth2Auth: true,
+      allowUsernameAuth: false,
+      exceptEmailDomains: null,
+      manageRule: null,
+      minPasswordLength: 8,
+      onlyEmailDomains: null,
+      requireEmail: true,
+    },
   },
   {
     id: 'ebrs6bmtjldgm60',
