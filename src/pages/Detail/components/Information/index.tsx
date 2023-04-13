@@ -8,36 +8,35 @@ interface IProps {
 }
 
 const Information = ({ product }: IProps) => {
-  console.log(product);
-
+  const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/${product.id}/`;
   return (
     <InformationStyle>
       <div className="container-ct">
         <div className="row-ct information">
           <div className="information__img col-ct">
             <div className="information__img--main">
-              <img src={product.thumbnail} alt="" />
+              <img src={imageURL + product.thumbnail} alt="" />
             </div>
             <div className="information__img--thumb">
               <i className="fas fa-angle-left prev-big-img animate__animated animate__fadeInLeft"></i>
               <Swiper
-                spaceBetween={50}
+                spaceBetween={20}
                 slidesPerView={1}
                 breakpoints={{
                   992: {
-                    slidesPerView: 4,
+                    slidesPerView: 5,
                   },
                   768: {
-                    slidesPerView: 3,
+                    slidesPerView: 4,
                   },
                   480: {
-                    slidesPerView: 2,
+                    slidesPerView: 3,
                   },
                 }}
               >
                 {product.images.map((image, index) => (
                   <SwiperSlide key={index}>
-                    <img src={image} alt="" />
+                    <img src={imageURL + image} alt="" />
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -62,34 +61,6 @@ const Information = ({ product }: IProps) => {
             <div className="information__info-price">
               {formatCurrency(product.price)}$
             </div>
-            {/* <div className="information__info-size">
-              <div className="size-head">Kích thước</div>
-              <div className="size-list">
-                <label>
-                  35
-                  <input type="radio" name="size" checked />
-                </label>
-                <label>
-                  36
-                  <input type="radio" name="size" />
-                </label>
-                <label>
-                  37
-                  <input type="radio" name="size" />
-                </label>
-              </div>
-            </div>
-            <div className="information__info-size information__info-color">
-              <div className="size-head">Màu sắc</div>
-              <div className="size-list">
-                <label id="white" className="hint--top" aria-label="Trắng!">
-                  <input type="radio" name="color" checked />
-                </label>
-                <label id="black" className="hint--top" aria-label="Đen">
-                  <input type="radio" name="color" />
-                </label>
-              </div>
-            </div> */}
             <div className="information__info-number">
               <div className="number-count">
                 <span className="num-decrease">
@@ -104,15 +75,6 @@ const Information = ({ product }: IProps) => {
                 <a href="/" data-toggle="modal" data-target="#product-popup">
                   <i className="fas fa-shopping-basket"></i> Mua ngay
                 </a>
-              </div>
-            </div>
-            <div className="information__info-hotline">
-              <div className="hotline-number">
-                <span>Tư vấn</span>
-                <a href="/">0123456789</a>
-              </div>
-              <div className="hotline-pay">
-                <img src="./assets/images/payment.png" alt="" />
               </div>
             </div>
           </div>

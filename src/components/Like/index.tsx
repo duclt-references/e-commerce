@@ -16,7 +16,7 @@ const Like = () => {
         };
         const response = await productService.getProducts(params);
 
-        setProducts(response.data?.products);
+        setProducts(response.data?.items);
       } catch (error) {
         console.log('Failed to fetch product list: ', error);
       }
@@ -35,7 +35,7 @@ const Like = () => {
           </div>
           <i className="fas fa-angle-left prev-big prev-big-1 animate__animated animate__fadeInLeft"></i>
           <Swiper
-            spaceBetween={50}
+            spaceBetween={10}
             slidesPerView={1}
             breakpoints={{
               992: {

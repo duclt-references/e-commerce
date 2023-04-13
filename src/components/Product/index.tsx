@@ -23,7 +23,7 @@ const Product = ({ product, isShowSlide }: IProductType) => {
   const { setVisible, setProduct } = useContext(ModalContext);
   const slug = convertToSlug(product.title, product.id);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const imageURL = `${process.env.END_POINT}/files/products/${product.id}/`;
+  const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/${product.id}/`;
 
   const handleBuyNow = () => {
     setVisible(true);

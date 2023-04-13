@@ -12,6 +12,7 @@ import Tabs from './components/Tabs';
 const Detail = () => {
   const { slug } = useParams();
   const id = getIdFromSlug(slug as string);
+
   const [loading, setLoading] = useState<boolean>(true);
   const [product, setProduct] = useState<IProduct | null>(null);
 

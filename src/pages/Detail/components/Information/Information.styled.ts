@@ -33,6 +33,14 @@ export const InformationStyle = styled.div`
         position: relative;
         .swiper-slide {
           height: auto;
+          padding: 4px;
+          border: 1px solid transparent;
+          &:hover {
+            border-color: #666;
+          }
+        }
+        .swiper-slide-active {
+          border-color: #666;
         }
         i {
           display: none;
@@ -56,7 +64,7 @@ export const InformationStyle = styled.div`
           right: -10px;
         }
         img {
-          width: 96px;
+          width: 100%;
           object-fit: cover;
           max-width: 100%;
           height: 100%;

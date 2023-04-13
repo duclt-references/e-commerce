@@ -75,6 +75,9 @@ export const LikeStyle = styled.div`
   .product {
     background-color: #fff;
     padding-bottom: 20px;
+    .product__img-img {
+      height: 60%;
+    }
   }
 
   @media screen and (max-width: 1200px) {
@@ -91,6 +94,9 @@ export const LikeStyle = styled.div`
           &__infor {
             margin-top: 20px;
           }
+          .product__img-img {
+            height: 80%;
+          }
         }
       }
       &__title {
@@ -106,6 +112,10 @@ export const LikeStyle = styled.div`
         .product {
           &__infor {
             padding: 0 15px;
+          }
+          .product__img-img {
+            height: 90%;
+            padding: 0 8px;
           }
         }
       }
