@@ -26,7 +26,7 @@ export const CartStyle = styled.div`
   &::after {
     position: absolute;
     content: '';
-    width: 30px;
+    width: 50px;
     height: 30px;
     left: -5px;
     bottom: -30px;
@@ -37,7 +37,7 @@ export const CartStyle = styled.div`
   .cart {
     display: none;
     position: absolute;
-    top: 45px;
+    top: 40px;
     right: 0px;
     background: #fff;
     padding: 0;
@@ -47,7 +47,7 @@ export const CartStyle = styled.div`
     box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.4);
     z-index: 10000;
     border-radius: 0px;
-    .cart__list {
+    &__list {
       max-height: 330px;
       overflow-y: scroll;
       padding-right: 15px;

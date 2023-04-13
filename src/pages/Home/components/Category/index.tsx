@@ -17,7 +17,6 @@ interface IProps {
 
 const Category = ({ category, title }: IProps) => {
   const [products, setProducts] = useState<IProduct[]>([]);
-  console.log(products, category);
 
   useEffect(() => {
     const getNewProducts = async () => {
