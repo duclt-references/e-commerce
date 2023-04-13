@@ -1,4 +1,5 @@
 import { ModalContext } from '@/contexts/modal.context';
+import { selectIsLoggedIn } from '@/store/auth/authSlice';
 import { IProduct } from '@/types/product.type';
 import { convertToSlug, formatCurrency } from '@/utils/common';
 import {
@@ -7,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ProductStyle } from './Product.styled';
@@ -17,9 +19,11 @@ interface IProductType {
 }
 
 const Product = ({ product, isShowSlide }: IProductType) => {
-  const percent = Math.round(product.discountPercentage);
+  const percent = Math.round(product.discount);
   const { setVisible, setProduct } = useContext(ModalContext);
   const slug = convertToSlug(product.title, product.id);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const imageURL = `${process.env.END_POINT}/files/products/${product.id}/`;
 
   const handleBuyNow = () => {
     setVisible(true);
@@ -31,11 +35,15 @@ const Product = ({ product, isShowSlide }: IProductType) => {
       <div className="product__img">
         <span className="product__img-promotion">-{percent}%</span>
         <Link to={`/${slug}`} className="product__img-img">
-          <img src={product.thumbnail} alt="" />
+          <img src={imageURL + product.thumbnail} alt="" />
         </Link>
-        <button className="product__img-btn" onClick={handleBuyNow}>
-          Mua ngay
-        </button>
+        {isLoggedIn ? (
+          <button className="product__img-btn" onClick={handleBuyNow}>
+            Mua ngay
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
       {isShowSlide ? (
         <div className="product__slide">

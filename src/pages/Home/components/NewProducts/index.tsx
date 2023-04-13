@@ -17,7 +17,7 @@ const NewProducts = () => {
         };
         const response = await productService.getProducts(params);
 
-        setProducts(response.data?.products);
+        setProducts(response.data?.items);
       } catch (error) {
         console.log('Failed to fetch product list: ', error);
       }

@@ -11,5 +11,5 @@ export const API_PATH = {
   login: 'collections/users/auth-with-password',
   register: 'collections/users/records',
   registerRefresh: 'collections/users/auth-refresh',
-  product: 'collections/users/records',
+  product: 'collections/products/records',
 };
