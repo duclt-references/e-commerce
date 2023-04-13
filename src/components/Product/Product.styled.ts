@@ -8,6 +8,7 @@ export const ProductStyle = styled.div`
       justify-content: center;
       position: relative;
       height: 220px;
+      margin-bottom: 1rem;
       &-btn {
         position: absolute;
         left: 0;
@@ -27,13 +28,14 @@ export const ProductStyle = styled.div`
       }
       &-img {
         width: 100%;
-        max-height: 100%;
+        height: 100%;
         padding: 0 4px;
         img {
           max-width: 100%;
           max-height: 100%;
           width: 100%;
-          height: auto;
+          height: 100%;
+          object-fit: cover;
         }
       }
       &-promotion {
@@ -70,6 +72,8 @@ export const ProductStyle = styled.div`
       }
       img {
         height: 65px;
+        width: 100%;
+        object-fit: cover;
       }
     }
     &__info {
@@ -113,13 +117,8 @@ export const ProductStyle = styled.div`
     .product {
       &__img {
         height: 180px;
-        &-img {
-          height: 100%;
-          width: auto;
-        }
         img {
           height: 100%;
-          width: auto;
           object-fit: cover;
         }
       }

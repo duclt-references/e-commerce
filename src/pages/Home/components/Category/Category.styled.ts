@@ -9,38 +9,31 @@ export const CategoryStyle = styled.div`
       height: 410px;
       &-img {
         background-size: cover;
+        background-position: center;
         height: 100%;
-      }
-      &-head {
-        padding: 50px 30px;
+        padding: 2rem;
         display: flex;
         flex-direction: column;
-        a {
-          font-size: 30px;
-          color: white;
-          margin-bottom: 20px;
-          &:hover {
-            color: #f72b3f;
-          }
-        }
-        span {
-          color: white;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      &-head {
+        font-size: 30px;
+        color: white;
+        &:hover {
+          color: #f72b3f;
         }
       }
       &-btn {
-        margin-top: 75px;
-        padding: 0 30px;
-        a {
-          height: 40px;
-          line-height: 40px;
-          text-transform: uppercase;
-          padding: 0 25px;
-          border: 1px solid white;
-          color: white;
-          &:hover {
-            background-color: #f72b3f;
-            border-color: #f72b3f;
-          }
+        height: 40px;
+        line-height: 40px;
+        text-transform: uppercase;
+        padding: 0 25px;
+        border: 1px solid white;
+        color: white;
+        &:hover {
+          background-color: #f72b3f;
+          border-color: #f72b3f;
         }
       }
     }
@@ -82,19 +75,19 @@ export const CategoryStyle = styled.div`
       }
     }
   }
-  .category-woman {
+  .category-laptops {
     .category__name-img {
-      background-image: url(https://bizweb.dktcdn.net/100/369/492/themes/741260/assets/bg_module_1.jpg?1594607980046);
+      background-image: url(https://hacom.vn/media/lib/06-01-2022/tat-laptop-dung-cach-3.jpg);
     }
   }
-  .category-man {
+  .category-smartphones {
     .category__name-img {
-      background-image: url(https://bizweb.dktcdn.net/100/369/492/themes/741260/assets/bg_module_2.jpg?1594607980046);
+      background-image: url(https://thepixel.vn/wp-content/uploads/danh-sach-smartphone-oppo-nang-cap-coloros-13-thang-2-2023-the-pixel.jpg);
     }
   }
-  .category-kid {
+  .category-watches {
     .category__name-img {
-      background-image: url(https://bizweb.dktcdn.net/100/369/492/themes/741260/assets/bg_module_3.jpg?1594607980046);
+      background-image: url(https://bizweb.dktcdn.net/100/405/172/themes/788999/assets/img_gallery_8.jpg?1635308630071);
     }
   }
 

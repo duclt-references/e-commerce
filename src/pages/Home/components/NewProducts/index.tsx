@@ -32,7 +32,7 @@ const NewProducts = () => {
         <Heading title="Hàng mới về" path="/" />
       </div>
       <Swiper
-        spaceBetween={50}
+        spaceBetween={30}
         slidesPerView={1}
         breakpoints={{
           1200: {

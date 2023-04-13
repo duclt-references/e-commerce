@@ -1,32 +1,54 @@
 import Product from '@/components/Product';
+import { productService } from '@/services/productService';
+import { IProduct } from '@/types/product.type';
 import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CategoryStyle } from './Category.styled';
 
-const Category = () => {
+interface IProps {
+  category: string;
+  title: string;
+}
+
+const Category = ({ category, title }: IProps) => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  console.log(products, category);
+
+  useEffect(() => {
+    const getNewProducts = async () => {
+      try {
+        const params = {
+          limit: 10,
+          filter: `(category.slug='${category}')`,
+        };
+        const response = await productService.getProducts(params);
+
+        setProducts(response.data?.items);
+      } catch (error) {
+        console.log('Failed to fetch product list: ', error);
+      }
+    };
+
+    getNewProducts();
+  }, [category]);
+
   return (
     <CategoryStyle>
-      <div className="container-ct category category-woman">
+      <div className={`container-ct category category-${category}`}>
         <div className="row-ct">
           <div className="category__name col-ct">
             <div className="category__name-img">
-              <div className="category__name-head">
-                <a href="/">Cho nữ</a>
-                <span>
-                  Cung cấp những sản phẩm
-                  <br />
-                  bộ sưu tập mới nhất
-                  <br />
-                  cho bạn
-                </span>
-              </div>
-              <div className="category__name-btn">
-                <a href="/">Xem thêm</a>
-              </div>
+              <a href="/" className="category__name-head">
+                {title}
+              </a>
+              <a className="category__name-btn" href="/">
+                Xem thêm
+              </a>
             </div>
           </div>
           <div className="category__list col-ct">
@@ -45,30 +67,15 @@ const Category = () => {
                 },
               }}
             >
-              <SwiperSlide>
-                <Product isShowSlide />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Product isShowSlide />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Product isShowSlide />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Product isShowSlide />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Product isShowSlide />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Product isShowSlide />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Product isShowSlide />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Product isShowSlide />
-              </SwiperSlide>
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <SwiperSlide key={product.id}>
+                    <Product product={product} isShowSlide={true} />
+                  </SwiperSlide>
+                ))
+              ) : (
+                <></>
+              )}
             </Swiper>
             <div className="next-big next-big-1 animate__animated animate__fadeInRight">
               <FontAwesomeIcon icon={faChevronRight} />

@@ -15,7 +15,7 @@ import { ProductStyle } from './Product.styled';
 
 interface IProductType {
   product: IProduct;
-  isShowSlide: false;
+  isShowSlide: boolean;
 }
 
 const Product = ({ product, isShowSlide }: IProductType) => {
@@ -50,11 +50,11 @@ const Product = ({ product, isShowSlide }: IProductType) => {
           <div className="prev-small-1">
             <FontAwesomeIcon icon={faChevronLeft} />
           </div>
-          <Swiper spaceBetween={50} slidesPerView={3}>
+          <Swiper spaceBetween={10} slidesPerView={3}>
             {product.images.map((image, index) => (
               <SwiperSlide key={index}>
                 <div className="swiper-slide product__slide-img">
-                  <img src={image} alt="" />
+                  <img src={imageURL + image} alt="" />
                 </div>
               </SwiperSlide>
             ))}

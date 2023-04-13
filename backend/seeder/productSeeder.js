@@ -50,7 +50,7 @@ for (let i = 0; i < products.length; i++) {
         const category = await pb
           .collection('categories')
           .getFirstListItem(`slug ~ "${product.category}"`);
-        formData.append(category, category.id);
+        formData.append('category', category.id);
         break;
       }
       default: {
