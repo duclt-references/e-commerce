@@ -40,10 +40,16 @@ const authSlice = createSlice({
     builder.addCase(fetchRegister.fulfilled, (state, { payload }) => {
       state.logging = false;
       state.isLoggedIn = true;
-      state.currentUser = payload.record;
+      state.currentUser = {
+        id: payload.record.id,
+        name: payload.record.name,
+        email: payload.record.email,
+        phone: payload.record.phone,
+        address: payload.record.address,
+      };
       state.accessToken = payload.token;
       localStorage.setItem('access_token', payload.token);
-      localStorage.setItem('current_user', JSON.stringify(payload.record));
+      localStorage.setItem('current_user', JSON.stringify(state.currentUser));
     });
     builder.addCase(fetchRegister.rejected, (state) => {
       state.logging = false;
@@ -58,10 +64,16 @@ const authSlice = createSlice({
     builder.addCase(fetchLogin.fulfilled, (state, { payload }) => {
       state.logging = false;
       state.isLoggedIn = true;
-      state.currentUser = payload.record;
+      state.currentUser = {
+        id: payload.record.id,
+        name: payload.record.name,
+        email: payload.record.email,
+        phone: payload.record.phone,
+        address: payload.record.address,
+      };
       state.accessToken = payload.token;
       localStorage.setItem('access_token', payload.token);
-      localStorage.setItem('current_user', JSON.stringify(payload.record));
+      localStorage.setItem('current_user', JSON.stringify(state.currentUser));
     });
     builder.addCase(fetchLogin.rejected, (state) => {
       state.logging = false;
