@@ -1,7 +1,10 @@
 import { ShoppingBag } from '@/assets/images';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { selectCurrentUser } from '@/store/auth/authSlice';
-import { fetchCartItems } from '@/store/cart/cartAction';
+import {
+  fetchCartItems,
+  fetchUpdateProductToCart,
+} from '@/store/cart/cartAction';
 import {
   selectCartItems,
   selectCartTotalAmount,
@@ -24,7 +27,28 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(fetchCartItems(currentUser?.id));
-  }, [dispatch, currentUser]);
+  }, [dispatch, currentUser, cartTotalQuantity]);
+
+  const increase = (product: ICartItem) => {
+    if (product.quantity + 1 > product.stock) return;
+    dispatch(
+      fetchUpdateProductToCart({
+        order_product_id: product.orderId,
+        quantity: product.quantity + 1,
+      })
+    );
+  };
+
+  const decrease = (product: ICartItem) => {
+    if (product.quantity - 1 == 0) return;
+    dispatch(
+      fetchUpdateProductToCart({
+        order_product_id: product.orderId,
+        quantity: product.quantity - 1,
+      })
+    );
+  };
+
   return (
     <CartStyle>
       {cartItems.length > 0 ? (
@@ -58,9 +82,21 @@ const Cart = () => {
                       {formatCurrency(product.price * product.discount)}$
                     </div>
                     <div className="clitem__infor-number">
-                      <span className="num-decrease">-</span>
-                      <input type="number" defaultValue={product.quantity} />
-                      <span className="num-increase">+</span>
+                      <span
+                        className="num-decrease"
+                        onClick={() => decrease(product)}
+                        aria-hidden="true"
+                      >
+                        -
+                      </span>
+                      <input type="number" value={product.quantity} />
+                      <span
+                        className="num-increase"
+                        onClick={() => increase(product)}
+                        aria-hidden="true"
+                      >
+                        +
+                      </span>
                     </div>
                   </div>
                   <i className="fas fa-times"></i>
