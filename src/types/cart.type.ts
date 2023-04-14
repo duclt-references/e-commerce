@@ -16,6 +16,7 @@ export interface ICart {
 }
 
 export interface IProductAddToCart {
+  user_id: string | null;
   order_id: string | null;
   product_id: string;
   quantity: number;

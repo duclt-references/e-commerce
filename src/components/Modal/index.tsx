@@ -1,6 +1,9 @@
 import { ModalContext } from '@/contexts/modal.context';
-import { useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { selectCurrentUser } from '@/store/auth/authSlice';
+import { fetchAddProductToCart } from '@/store/cart/cartAction';
 import {
+  selectCartId,
   selectCartTotalAmount,
   selectCartTotalQuantity,
 } from '@/store/cart/cartSlice';
@@ -11,7 +14,7 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalStyle } from './Modal.styled';
 
@@ -19,6 +22,22 @@ const Modal = () => {
   const { visible, setVisible, product, setProduct } = useContext(ModalContext);
   const cartTotalAmount = useAppSelector(selectCartTotalAmount);
   const cartTotalQuantity = useAppSelector(selectCartTotalQuantity);
+  const cartId = useAppSelector(selectCartId);
+  const currentUser = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (product !== null && cartId !== null) {
+      dispatch(
+        fetchAddProductToCart({
+          user_id: currentUser?.id as string,
+          order_id: cartId,
+          product_id: product.id,
+          quantity: 1,
+        })
+      );
+    }
+  }, [dispatch, product, cartId, currentUser]);
 
   if (product === null) return <></>;
 
