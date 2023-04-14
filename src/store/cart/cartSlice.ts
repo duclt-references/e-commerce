@@ -1,4 +1,4 @@
-import { IProduct } from '@/types/product.type';
+import { ICartItem } from '@/types/cart.type';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '..';
 import {
@@ -28,28 +28,28 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCartItems.fulfilled, (state, { payload }) => {
       state.cartId = payload.orderId;
-      const { cartItems, cartTotalQuantity, cartTotalAmount } = updateState(
+      const { cartTotalQuantity, cartTotalAmount } = updateState(
         payload.products
       );
-      state.cartItems = cartItems;
+      state.cartItems = payload.products;
       state.cartTotalQuantity = cartTotalQuantity;
       state.cartTotalAmount = cartTotalAmount;
     });
     builder.addCase(fetchAddProductToCart.fulfilled, (state, { payload }) => {
-      const { cartItems, cartTotalQuantity, cartTotalAmount } = updateState(
+      const { cartTotalQuantity, cartTotalAmount } = updateState(
         payload.products
       );
-      state.cartItems = cartItems;
+      state.cartItems = payload.products;
       state.cartTotalQuantity = cartTotalQuantity;
       state.cartTotalAmount = cartTotalAmount;
     });
     builder.addCase(
       fetchUpdateProductToCart.fulfilled,
       (state, { payload }) => {
-        const { cartItems, cartTotalQuantity, cartTotalAmount } = updateState(
+        const { cartTotalQuantity, cartTotalAmount } = updateState(
           payload.products
         );
-        state.cartItems = cartItems;
+        state.cartItems = payload.products;
         state.cartTotalQuantity = cartTotalQuantity;
         state.cartTotalAmount = cartTotalAmount;
       }
@@ -58,13 +58,15 @@ const cartSlice = createSlice({
 });
 
 const updateState = (products: []) => {
-  const cartItems = products;
-  const cartTotalQuantity = products.length;
-  const cartTotalAmount = products.reduce(
-    (sum: number, item: IProduct) => sum + item.price * item.discount,
+  const cartTotalQuantity = products.reduce(
+    (sum: number, item: ICartItem) => sum + item.quantity,
     0
   );
-  return { cartItems, cartTotalQuantity, cartTotalAmount };
+  const cartTotalAmount = products.reduce(
+    (sum: number, item: ICartItem) => sum + item.price * item.discount,
+    0
+  );
+  return { cartTotalQuantity, cartTotalAmount };
 };
 
 export const selectCartId = (state: RootState) => state.cart.cartId;

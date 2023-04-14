@@ -1,3 +1,5 @@
+import { IProduct } from './product.type';
+
 export interface ICartParams {
   page?: number | string;
   limit?: number | string;
@@ -16,8 +18,16 @@ export interface ICart {
 }
 
 export interface IProductAddToCart {
-  user_id: string | null;
   order_id: string | null;
   product_id: string;
   quantity: number;
+}
+export interface IProductUpdateToCart {
+  order_product_id: string;
+  quantity: number;
+}
+
+export interface ICartItem extends IProduct {
+  quantity: number;
+  orderId: string;
 }

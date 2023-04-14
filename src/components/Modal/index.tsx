@@ -1,12 +1,16 @@
 import { ModalContext } from '@/contexts/modal.context';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
-import { selectCurrentUser } from '@/store/auth/authSlice';
-import { fetchAddProductToCart } from '@/store/cart/cartAction';
+import {
+  fetchAddProductToCart,
+  fetchUpdateProductToCart,
+} from '@/store/cart/cartAction';
 import {
   selectCartId,
+  selectCartItems,
   selectCartTotalAmount,
   selectCartTotalQuantity,
 } from '@/store/cart/cartSlice';
+import { ICartItem } from '@/types/cart.type';
 import { formatCurrency } from '@/utils/common';
 import {
   faCheck,
@@ -23,21 +27,34 @@ const Modal = () => {
   const cartTotalAmount = useAppSelector(selectCartTotalAmount);
   const cartTotalQuantity = useAppSelector(selectCartTotalQuantity);
   const cartId = useAppSelector(selectCartId);
-  const currentUser = useAppSelector(selectCurrentUser);
+  const cartItems = useAppSelector(selectCartItems);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (product !== null && cartId !== null) {
-      dispatch(
-        fetchAddProductToCart({
-          user_id: currentUser?.id as string,
-          order_id: cartId,
-          product_id: product.id,
-          quantity: 1,
-        })
+      const existProduct: ICartItem | undefined = cartItems.find(
+        (item: ICartItem) => item.id === product.id
       );
+
+      if (existProduct === undefined) {
+        dispatch(
+          fetchAddProductToCart({
+            order_id: cartId,
+            product_id: product.id,
+            quantity: 1,
+          })
+        );
+      } else {
+        dispatch(
+          fetchUpdateProductToCart({
+            order_product_id: existProduct.orderId,
+            quantity: existProduct.quantity + 1,
+          })
+        );
+      }
     }
-  }, [dispatch, product, cartId, currentUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, product]);
 
   if (product === null) return <></>;
 

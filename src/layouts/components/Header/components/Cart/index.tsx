@@ -2,8 +2,12 @@ import { ShoppingBag } from '@/assets/images';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { selectCurrentUser } from '@/store/auth/authSlice';
 import { fetchCartItems } from '@/store/cart/cartAction';
-import { selectCartItems, selectCartTotalAmount } from '@/store/cart/cartSlice';
-import { IProduct } from '@/types/product.type';
+import {
+  selectCartItems,
+  selectCartTotalAmount,
+  selectCartTotalQuantity,
+} from '@/store/cart/cartSlice';
+import { ICartItem } from '@/types/cart.type';
 import { formatCurrency } from '@/utils/common';
 import { useEffect } from 'react';
 import { CartStyle } from './Cart.styled';
@@ -14,7 +18,9 @@ const Cart = () => {
   const currentUser = useAppSelector(selectCurrentUser);
   const cartItems = useAppSelector(selectCartItems);
   const cartTotalAmount = useAppSelector(selectCartTotalAmount);
+  const cartTotalQuantity = useAppSelector(selectCartTotalQuantity);
   const dispatch = useAppDispatch();
+  console.log(cartItems);
 
   useEffect(() => {
     dispatch(fetchCartItems(currentUser?.id));
@@ -25,11 +31,11 @@ const Cart = () => {
         <>
           <a href="./cart.html" className="cart-icon">
             <img src={ShoppingBag} alt="" />
-            <span className="total-product">{cartItems.length}</span>
+            <span className="total-product">{cartTotalQuantity}</span>
           </a>
           <div className="cart">
             <div className="cart__list">
-              {cartItems.map((product: IProduct) => (
+              {cartItems.map((product: ICartItem) => (
                 <div className="cart__list-item" key={product.id}>
                   <div className="clitem__img">
                     <a href="./detail.html">
@@ -53,7 +59,7 @@ const Cart = () => {
                     </div>
                     <div className="clitem__infor-number">
                       <span className="num-decrease">-</span>
-                      <input type="number" defaultValue="1" />
+                      <input type="number" defaultValue={product.quantity} />
                       <span className="num-increase">+</span>
                     </div>
                   </div>

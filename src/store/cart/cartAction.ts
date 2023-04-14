@@ -1,6 +1,7 @@
 import { cartService } from '@/services/cartService';
-import { IProductAddToCart } from '@/types/cart.type';
+import { IProductAddToCart, IProductUpdateToCart } from '@/types/cart.type';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from '..';
 
 const getCartItems = async (userId: string | undefined) => {
   const params = {
@@ -15,9 +16,14 @@ const getCartItems = async (userId: string | undefined) => {
     const orderId = items[0].order_id;
 
     const products = items.map(
-      (value: { expand: { product_id: object }; quantity: number }) => {
+      (value: {
+        id: string;
+        expand: { product_id: object };
+        quantity: number;
+      }) => {
         const { expand: expandProduct } = value;
         return {
+          orderId: value.id,
           quantity: value.quantity,
           ...expandProduct.product_id,
         };
@@ -45,10 +51,12 @@ export const fetchCartItems = createAsyncThunk(
 
 export const fetchAddProductToCart = createAsyncThunk(
   'cart/addItem',
-  async (item: IProductAddToCart, { rejectWithValue }) => {
+  async (item: IProductAddToCart, { getState, rejectWithValue }) => {
     try {
+      const state = getState() as RootState;
       await cartService.addProductToCart(item);
-      const data = await getCartItems(item.user_id as string);
+
+      const data = await getCartItems(state.auth.currentUser?.id);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -62,10 +70,11 @@ export const fetchAddProductToCart = createAsyncThunk(
 
 export const fetchUpdateProductToCart = createAsyncThunk(
   'cart/updateItem',
-  async (item: IProductAddToCart, { rejectWithValue }) => {
+  async (item: IProductUpdateToCart, { getState, rejectWithValue }) => {
     try {
       await cartService.updateProductToCart(item);
-      const data = await getCartItems(item.user_id as string);
+      const state = getState() as RootState;
+      const data = await getCartItems(state.auth.currentUser?.id);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
