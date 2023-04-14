@@ -1,60 +1,27 @@
 import { ShoppingBag } from '@/assets/images';
-import { cartService } from '@/services/cartService';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { selectCurrentUser } from '@/store/auth/authSlice';
+import { fetchCartItems } from '@/store/cart/cartAction';
+import { selectCartItems, selectCartTotalAmount } from '@/store/cart/cartSlice';
 import { IProduct } from '@/types/product.type';
 import { formatCurrency } from '@/utils/common';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { CartStyle } from './Cart.styled';
 
 const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/`;
 
 const Cart = () => {
-  const [cart, setCarts] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
-
-  const currentUser = useSelector(selectCurrentUser);
+  const currentUser = useAppSelector(selectCurrentUser);
+  const cartItems = useAppSelector(selectCartItems);
+  const cartTotalAmount = useAppSelector(selectCartTotalAmount);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const getNewProducts = async () => {
-      try {
-        const params = {
-          limit: 10,
-          filter: `(user_id='${currentUser?.id}'&&status='pending')`,
-          expand: 'order_products(order_id).product_id',
-        };
-        const response = await cartService.getCarts(params);
-        if (response.data.items.length > 0) {
-          const item = response.data.items[0];
-          const { expand: expandCart, ...userCart } = item;
-          setCarts(userCart);
-          if (expandCart) {
-            // eslint-disable-next-line eslint-comments/disable-enable-pair
-            /* eslint-disable  @typescript-eslint/no-explicit-any */
-            const cartProduct: any = Object.values(expandCart)[0];
-
-            const products = cartProduct.map(
-              (value: { expand: { product_id: object }; quantity: number }) => {
-                const { expand: expandProduct } = value;
-                return {
-                  quantity: value.quantity,
-                  ...expandProduct.product_id,
-                };
-              }
-            );
-            setCartItems(products);
-          }
-        }
-      } catch (error) {
-        console.log('Failed to fetch cart list: ', error);
-      }
-    };
-
-    getNewProducts();
-  }, [currentUser]);
+    dispatch(fetchCartItems(currentUser?.id));
+  }, [dispatch, currentUser]);
   return (
     <CartStyle>
-      {cart ? (
+      {cartItems.length > 0 ? (
         <>
           <a href="./cart.html" className="cart-icon">
             <img src={ShoppingBag} alt="" />
@@ -96,7 +63,7 @@ const Cart = () => {
             </div>
             <div className="cart__total">
               <span>Tổng cộng</span>
-              <span className="cart__total-money">8.200.000₫</span>
+              <span className="cart__total-money">{cartTotalAmount}$</span>
             </div>
             <div className="cart__btn">
               <a href="./cart.html" className="cart__btn-cart">

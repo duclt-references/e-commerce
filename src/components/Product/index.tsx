@@ -8,10 +8,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ProductStyle } from './Product.styled';
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface IProductType {
   product: IProduct;
@@ -22,7 +22,7 @@ const Product = ({ product, isShowSlide }: IProductType) => {
   const percent = Math.round(product.discount);
   const { setVisible, setProduct } = useContext(ModalContext);
   const slug = convertToSlug(product.title, product.id);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/${product.id}/`;
 
   const handleBuyNow = () => {

@@ -13,4 +13,5 @@ export const API_PATH = {
   registerRefresh: 'collections/users/auth-refresh',
   product: 'collections/products/records',
   cart: 'collections/orders/records',
+  cartItems: 'collections/order_products/records',
 };

@@ -1,7 +1,7 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { PATH } from '@/config/path';
-import { useAppDispatch } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { fetchLogin } from '@/store/auth/authAction';
 import { selectIsLoggedIn } from '@/store/auth/authSlice';
 import { ILogin } from '@/types/auth.type';
@@ -9,7 +9,6 @@ import { schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 const registerSchema = schema.pick(['email', 'password']);
@@ -23,7 +22,7 @@ const Login = () => {
     resolver: yupResolver(registerSchema),
   });
   const dispatch = useAppDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const navigate = useNavigate();
 
   useEffect(() => {

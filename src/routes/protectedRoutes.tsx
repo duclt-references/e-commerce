@@ -1,12 +1,12 @@
 import { PATH } from '@/config/path';
+import { useAppSelector } from '@/hooks/useRedux';
 import MainLayout from '@/layouts/MainLayout';
 import Profile from '@/pages/Profile';
 import { selectIsLoggedIn } from '@/store/auth/authSlice';
-import { useSelector } from 'react-redux';
 import { Navigate, Outlet, RouteObject } from 'react-router';
 
 function ProtectedRoute() {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 }

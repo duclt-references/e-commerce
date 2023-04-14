@@ -1,6 +1,6 @@
 import { API_PATH } from '@/config/path';
 import { apiService } from '@/httpRequest';
-import { ICartParams } from '@/types/cart.type';
+import { ICartParams, IProductAddToCart } from '@/types/cart.type';
 
 export const cartService = {
   getCarts(params: ICartParams) {
@@ -8,8 +8,15 @@ export const cartService = {
       params,
     });
   },
-
+  getCartItems(params: ICartParams) {
+    return apiService.get(API_PATH.cartItems, {
+      params,
+    });
+  },
   getCartDetail(id: string) {
     return apiService.get(`${API_PATH.product}/${id}`);
+  },
+  addProductToCart(item: IProductAddToCart) {
+    return apiService.post(API_PATH.cartItems, item);
   },
 };

@@ -1,14 +1,13 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { PATH } from '@/config/path';
-import { useAppDispatch } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { fetchRegister } from '@/store/auth/authAction';
 import { selectIsLoggedIn } from '@/store/auth/authSlice';
 import { Schema, schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 type TFormData = Pick<Schema, 'email' | 'password' | 'name' | 'phone'>;
@@ -22,7 +21,7 @@ const Register = () => {
   } = useForm<TFormData>({
     resolver: yupResolver(registerSchema),
   });
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

@@ -43,6 +43,9 @@ export const ModalStyle = styled.div`
       &:nth-child(1) {
         border-right: 1px solid #ebebeb;
       }
+      svg {
+        margin-right: 4px;
+      }
     }
     &__content--left {
       display: flex;

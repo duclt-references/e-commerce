@@ -1,6 +1,6 @@
 import { Logo, ShoppingBag } from '@/assets/images';
 import { PATH } from '@/config/path';
-import { useAppDispatch } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import {
   logout,
   selectCurrentUser,
@@ -8,14 +8,13 @@ import {
 } from '@/store/auth/authSlice';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import HeaderStyle from './Header.styled';
 import Cart from './components/Cart';
 
 const Header = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const currentUser = useSelector(selectCurrentUser);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const currentUser = useAppSelector(selectCurrentUser);
 
   const dispatch = useAppDispatch();
 
