@@ -59,3 +59,20 @@ export const fetchAddProductToCart = createAsyncThunk(
     }
   }
 );
+
+export const fetchUpdateProductToCart = createAsyncThunk(
+  'cart/updateItem',
+  async (item: IProductAddToCart, { rejectWithValue }) => {
+    try {
+      await cartService.updateProductToCart(item);
+      const data = await getCartItems(item.user_id as string);
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);

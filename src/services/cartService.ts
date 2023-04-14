@@ -19,4 +19,7 @@ export const cartService = {
   addProductToCart(item: IProductAddToCart) {
     return apiService.post(API_PATH.cartItems, item);
   },
+  updateProductToCart(item: IProductAddToCart) {
+    return apiService.patch(API_PATH.cartItems, item);
+  },
 };
