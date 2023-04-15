@@ -6,8 +6,11 @@ import {
   selectCurrentUser,
   selectIsLoggedIn,
 } from '@/store/auth/authSlice';
+import { fetchCartItems } from '@/store/cart/cartAction';
+import { selectCartItems } from '@/store/cart/cartSlice';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderStyle from './Header.styled';
 import Cart from './components/Cart';
@@ -15,8 +18,12 @@ import Cart from './components/Cart';
 const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
-
+  const cartItems = useAppSelector(selectCartItems);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCartItems('1'));
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -114,6 +121,9 @@ const Header = () => {
               ) : (
                 <a href="./cart.html" className="cart-icon">
                   <img src={ShoppingBag} alt="" />
+                  <span className="total-product">
+                    {cartItems ? cartItems.products.length : 0}
+                  </span>
                 </a>
               )}
             </div>
