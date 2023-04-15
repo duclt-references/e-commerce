@@ -5,6 +5,7 @@ export const PATH = {
   profile: '/user/profile',
   login: '/login',
   register: '/register',
+  payment: '/payment',
 };
 
 export const API_PATH = {
