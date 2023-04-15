@@ -12,7 +12,7 @@ export function formatNumberToSocialStyle(value: number) {
     .toLowerCase();
 }
 
-export function convertToSlug(name: string, id: number) {
+export function convertToSlug(name: string, id: string) {
   return (
     name
       .toLowerCase()

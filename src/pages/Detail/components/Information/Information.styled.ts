@@ -42,7 +42,7 @@ export const InformationStyle = styled.div`
         .swiper-slide-active {
           border-color: #666;
         }
-        i {
+        svg {
           display: none;
           position: absolute;
           top: 32%;
@@ -202,7 +202,7 @@ export const InformationStyle = styled.div`
         }
         .number-btn {
           margin-left: 10px;
-          a {
+          button {
             height: 55px;
             line-height: 55px;
             background-color: #f72b3f;
@@ -212,9 +212,13 @@ export const InformationStyle = styled.div`
             width: 230px;
             text-align: center;
             display: block;
+            cursor: pointer;
             &:hover {
               background-color: #060085;
               color: white;
+            }
+            svg {
+              margin-right: 4px;
             }
           }
         }
@@ -298,7 +302,7 @@ export const InformationStyle = styled.div`
       }
       &__img {
         &-thumb:hover {
-          i {
+          svg {
             display: block;
           }
         }

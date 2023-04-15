@@ -1,5 +1,6 @@
 import Breadcrumb from '@/components/Breadcrumb';
 import Like from '@/components/Like';
+import Modal from '@/components/Modal';
 import { productService } from '@/services/productService';
 import { IProduct } from '@/types/product.type';
 import { getIdFromSlug } from '@/utils/common';
@@ -8,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import Banner from './components/Banner';
 import Information from './components/Information';
 import Tabs from './components/Tabs';
+import { ModalProvider } from '@/contexts/modal.context';
 
 const Detail = () => {
   const { slug } = useParams();
@@ -30,7 +32,8 @@ const Detail = () => {
   }, [id]);
 
   return (
-    <>
+    <ModalProvider>
+      <Modal />
       <Breadcrumb />
       {loading ? (
         <h2>Loading</h2>
@@ -40,7 +43,7 @@ const Detail = () => {
       <Banner />
       <Tabs />
       <Like />
-    </>
+    </ModalProvider>
   );
 };
 

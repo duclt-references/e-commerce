@@ -80,6 +80,7 @@ export const CartStyle = styled.div`
           img {
             width: 80px;
             height: 80px;
+            object-fit: cover;
           }
         }
         .clitem__infor {

@@ -23,7 +23,6 @@ const Cart = () => {
   const cartTotalAmount = useAppSelector(selectCartTotalAmount);
   const cartTotalQuantity = useAppSelector(selectCartTotalQuantity);
   const dispatch = useAppDispatch();
-  console.log(cartItems);
 
   useEffect(() => {
     dispatch(fetchCartItems(currentUser?.id));
@@ -89,7 +88,7 @@ const Cart = () => {
                       >
                         -
                       </span>
-                      <input type="number" value={product.quantity} />
+                      <input type="number" value={product.quantity} readOnly />
                       <span
                         className="num-increase"
                         onClick={() => increase(product)}

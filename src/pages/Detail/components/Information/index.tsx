@@ -1,5 +1,14 @@
+import { ModalContext } from '@/contexts/modal.context';
 import { IProduct } from '@/types/product.type';
 import { formatCurrency } from '@/utils/common';
+import {
+  faAngleRight,
+  faMinus,
+  faPlus,
+  faShoppingBasket,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useContext, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { InformationStyle } from './Information.styled';
 
@@ -9,6 +18,26 @@ interface IProps {
 
 const Information = ({ product }: IProps) => {
   const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/${product.id}/`;
+  const [currentQuantity, setCurrentQuantity] = useState(1);
+  const { setVisible, setQuantity, setProduct } = useContext(ModalContext);
+
+  const handleIncrease = () => {
+    if (currentQuantity + 1 > product.stock) return;
+    setCurrentQuantity(currentQuantity + 1);
+  };
+
+  const handleDecrease = () => {
+    if (currentQuantity - 1 === 0) return;
+    setCurrentQuantity(currentQuantity - 1);
+  };
+
+  const handleAddToCart = () => {
+    console.log(123);
+    setVisible(true);
+    setQuantity(currentQuantity);
+    setProduct(product);
+  };
+
   return (
     <InformationStyle>
       <div className="container-ct">
@@ -40,7 +69,10 @@ const Information = ({ product }: IProps) => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <i className="fas fa-angle-right  next-big-img animate__animated animate__fadeInLeft"></i>
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                className="next-big-img animate__animated animate__fadeInLeft"
+              />
             </div>
           </div>
           <div className="information__info col-ct">
@@ -63,18 +95,31 @@ const Information = ({ product }: IProps) => {
             </div>
             <div className="information__info-number">
               <div className="number-count">
-                <span className="num-decrease">
-                  <i className="fas fa-minus"></i>
+                <span
+                  className="num-decrease"
+                  aria-hidden="true"
+                  onClick={handleDecrease}
+                >
+                  <FontAwesomeIcon icon={faMinus} />
                 </span>
-                <input type="number" value="1" />
-                <span className="num-increase">
-                  <i className="fas fa-plus"></i>
+                <input type="number" value={currentQuantity} readOnly />
+                <span
+                  className="num-increase"
+                  aria-hidden="true"
+                  onClick={handleIncrease}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
                 </span>
               </div>
               <div className="number-btn">
-                <a href="/" data-toggle="modal" data-target="#product-popup">
-                  <i className="fas fa-shopping-basket"></i> Mua ngay
-                </a>
+                <button
+                  data-toggle="modal"
+                  data-target="#product-popup"
+                  onClick={handleAddToCart}
+                >
+                  <FontAwesomeIcon icon={faShoppingBasket} />
+                  Mua ngay
+                </button>
               </div>
             </div>
           </div>

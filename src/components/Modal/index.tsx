@@ -23,7 +23,8 @@ import { createPortal } from 'react-dom';
 import { ModalStyle } from './Modal.styled';
 
 const Modal = () => {
-  const { visible, setVisible, product, setProduct } = useContext(ModalContext);
+  const { quantity, visible, setVisible, product, setProduct, setQuantity } =
+    useContext(ModalContext);
   const cartTotalAmount = useAppSelector(selectCartTotalAmount);
   const cartTotalQuantity = useAppSelector(selectCartTotalQuantity);
   const cartId = useAppSelector(selectCartId);
@@ -41,14 +42,14 @@ const Modal = () => {
           fetchAddProductToCart({
             order_id: cartId,
             product_id: product.id,
-            quantity: 1,
+            quantity,
           })
         );
       } else {
         dispatch(
           fetchUpdateProductToCart({
             order_product_id: existProduct.orderId,
-            quantity: existProduct.quantity + 1,
+            quantity: existProduct.quantity + quantity,
           })
         );
       }
@@ -63,6 +64,7 @@ const Modal = () => {
   const handleCloseModal = () => {
     setVisible(false);
     setProduct(null);
+    setQuantity(1);
   };
 
   return createPortal(
