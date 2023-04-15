@@ -31,7 +31,10 @@ const getCartItems = async (userId: string | undefined) => {
     );
     return { orderId, products };
   }
-  return [];
+  return {
+    orderId: '',
+    products: [],
+  };
 };
 
 export const fetchCartItems = createAsyncThunk(

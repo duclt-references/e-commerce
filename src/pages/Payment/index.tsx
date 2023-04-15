@@ -1,16 +1,31 @@
+import Input from '@/components/Input';
+import { IPayment } from '@/types/payment.type';
+import { paymentSchema } from '@/utils/rules';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 import { PaymentStyle } from './Payment.style';
 
 const Payment = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IPayment>({
+    resolver: yupResolver(paymentSchema),
+  });
+
+  const onSubmit = (data: IPayment) => {
+    console.log(data);
+  };
+
   return (
     <PaymentStyle>
-      {' '}
       <h2>
         <a href="./evo.html">Sea Fashion</a>
       </h2>
       <div className="total">
         <div className="total-container">
           <div className="total-head">
-            {' '}
             Đơn hàng (<span>1 sản phẩm</span>)
           </div>
           <div className="total-link">
@@ -19,7 +34,7 @@ const Payment = () => {
           </div>
         </div>
       </div>
-      <div className="payment">
+      <form className="payment" action="" onSubmit={handleSubmit(onSubmit)}>
         <div className="payment__infor">
           <div className="payment__infor-head">
             <a href="./evo.html">Sea Fashion</a>
@@ -30,39 +45,50 @@ const Payment = () => {
                 <span>
                   <i className="far fa-address-card"></i>Thông tin nhận hàng
                 </span>
-                <a href="./signin.html">
-                  <i className="far fa-user-circle"></i>Đăng nhập
-                </a>
               </div>
-              <form action="">
-                <div className="form-item">
-                  <input id="email" type="text" required />
-                  <label htmlFor="email">Email</label>
-                </div>
-                <div className="form-item">
-                  <input id="name" type="text" required />
-                  <label htmlFor="name">Họ và tên</label>
-                </div>
-                <div className="form-item">
-                  <input id="phone" type="text" required />
-                  <label htmlFor="phone">Số điện thoại</label>
-                </div>
-                <div className="form-item">
-                  <input id="address" type="text" required />
-                  <label htmlFor="address">Địa chỉ</label>
-                </div>
-                <select name="calc_shipping_provinces" required>
-                  <option value="">Tỉnh / Thành phố</option>
-                </select>
-                <select name="calc_shipping_district" required>
-                  <option value="">Quận / Huyện</option>
-                </select>
+              <div className="payment__form">
+                <Input
+                  name="email"
+                  label="Email"
+                  placeholder="Email"
+                  type="email"
+                  required
+                  register={register}
+                  errorMessage={errors.email?.message}
+                />
+                <Input
+                  name="name"
+                  label="Họ Tên"
+                  placeholder="Họ Tên"
+                  type="text"
+                  required
+                  register={register}
+                  errorMessage={errors.name?.message}
+                />
+                <Input
+                  name="phone"
+                  label="SĐT"
+                  placeholder="SĐT"
+                  type="text"
+                  required
+                  register={register}
+                  errorMessage={errors.phone?.message}
+                />
+                <Input
+                  name="address"
+                  label="Địa chỉ"
+                  placeholder="Địa chỉ"
+                  type="text"
+                  required
+                  register={register}
+                  errorMessage={errors.address?.message}
+                />
                 <div className="form-item">
                   <textarea name="" id="">
                     Ghi chú(tuỳ chọn)
                   </textarea>
                 </div>
-              </form>
+              </div>
             </div>
             <div className="main-right">
               <div className="main__head">
@@ -149,13 +175,6 @@ const Payment = () => {
                 <div className="list-item__right">130.000₫</div>
               </div>
             </div>
-            <div className="payment__order-promotion">
-              <div className="form-item">
-                <input id="code" type="text" required />
-                <label htmlFor="code">Nhập mã giảm giá</label>
-              </div>
-              <button>Áp dụng</button>
-            </div>
             <div className="payment__order-cal">
               <span>Tạm tính</span>
               <span>450.000₫</span>
@@ -179,7 +198,7 @@ const Payment = () => {
         </div>
 
         <div className="payment-temp"></div>
-      </div>
+      </form>
     </PaymentStyle>
   );
 };

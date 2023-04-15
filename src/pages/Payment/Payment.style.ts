@@ -34,7 +34,7 @@ export const PaymentStyle = styled.div`
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 10px;
+          margin-bottom: 2rem;
 
           i {
             display: none;
@@ -67,7 +67,6 @@ export const PaymentStyle = styled.div`
           width: 50%;
           padding-right: 15px;
 
-          input,
           select,
           textarea {
             margin-bottom: 10px;
@@ -182,18 +181,6 @@ export const PaymentStyle = styled.div`
         margin-bottom: 10px;
         margin-left: 25px;
         padding: 20px 10px 20px 0px;
-
-        input {
-          border-radius: 4px;
-          width: 100%;
-          display: block;
-          box-sizing: border-box;
-          padding: 0.94em 0.8em;
-          border: 1px #d9d9d9 solid;
-          height: 44px;
-          background-color: #fff;
-          color: #333;
-        }
 
         button {
           width: auto;
@@ -352,26 +339,6 @@ export const PaymentStyle = styled.div`
     background-color: #fafafa;
     top: 0;
     z-index: -1;
-  }
-
-  .form-item {
-    position: relative;
-    input {
-      font-size: 13px;
-    }
-    label {
-      position: absolute;
-      top: 10px;
-      left: 15px;
-      color: #999;
-      pointer-events: none;
-      transition: all 0.5s;
-    }
-    input:focus ~ label,
-    input:valid ~ label {
-      transform: translateY(-7px);
-      font-size: 12px;
-    }
   }
 
   h2 {
