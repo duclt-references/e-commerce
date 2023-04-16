@@ -13,6 +13,8 @@ import {
 import { ICartItem } from '@/types/cart.type';
 import { formatCurrency } from '@/utils/common';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { PATH } from '../../../../../config/path';
 import { CartStyle } from './Cart.styled';
 
 const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/`;
@@ -107,12 +109,12 @@ const Cart = () => {
               <span className="cart__total-money">{cartTotalAmount}$</span>
             </div>
             <div className="cart__btn">
-              <a href="./cart.html" className="cart__btn-cart">
+              {/* <a href="./cart.html" className="cart__btn-cart">
                 Giỏ hàng
-              </a>
-              <a href="./payment.html" className="cart__btn-pay">
+              </a> */}
+              <Link to={PATH.payment} className="cart__btn-pay">
                 Thanh toán
-              </a>
+              </Link>
             </div>
           </div>
         </>

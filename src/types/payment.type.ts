@@ -3,4 +3,5 @@ export interface IPayment {
   name: string;
   phone: string;
   address: string;
+  note?: string;
 }

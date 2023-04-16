@@ -22,8 +22,8 @@ const Header = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCartItems('1'));
-  }, [dispatch]);
+    dispatch(fetchCartItems(currentUser?.id));
+  }, [dispatch, currentUser]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -122,7 +122,7 @@ const Header = () => {
                 <a href="./cart.html" className="cart-icon">
                   <img src={ShoppingBag} alt="" />
                   <span className="total-product">
-                    {cartItems ? cartItems.products.length : 0}
+                    {cartItems ? cartItems.length : 0}
                   </span>
                 </a>
               )}

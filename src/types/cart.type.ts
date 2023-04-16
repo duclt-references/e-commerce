@@ -9,12 +9,14 @@ export interface ICartParams {
 }
 
 export interface ICart {
+  id?: string;
   user_id?: string;
-  address?: string;
+  order_address?: string;
   status?: string;
   order_email?: string;
   order_phone?: string;
   order_date?: string;
+  order_name?: string;
 }
 
 export interface IProductAddToCart {

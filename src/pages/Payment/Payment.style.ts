@@ -417,18 +417,10 @@ export const PaymentStyle = styled.div`
     }
 
     .payment-temp {
-      //    width: 100%;
-      //    left: 0;
-      //height: 100%;
       display: none;
     }
 
     .payment {
-      * {
-        padding-left: 0;
-        margin-left: 0;
-      }
-
       flex-wrap: wrap;
       padding: 0;
       max-width: 100%;
@@ -531,7 +523,6 @@ export const PaymentStyle = styled.div`
 
         &-list {
           max-height: 100%;
-          display: none;
         }
       }
     }

@@ -1,6 +1,7 @@
 import { API_PATH } from '@/config/path';
 import { apiService } from '@/httpRequest';
 import {
+  ICart,
   ICartParams,
   IProductAddToCart,
   IProductUpdateToCart,
@@ -25,8 +26,11 @@ export const cartService = {
   },
   updateProductToCart(item: IProductUpdateToCart) {
     return apiService.patch(
-      API_PATH.cartItems + `/${item.order_product_id}`,
+      `${API_PATH.cartItems}/${item.order_product_id}`,
       item
     );
+  },
+  updateCart(cart: ICart) {
+    return apiService.patch(`${API_PATH.cart}/${cart.id}`, cart);
   },
 };
