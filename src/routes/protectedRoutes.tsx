@@ -2,6 +2,7 @@ import { PATH } from '@/config/path';
 import { useAppSelector } from '@/hooks/useRedux';
 import AdminLayout from '@/layouts/AdminLayout';
 import MainLayout from '@/layouts/MainLayout';
+import ProductForm from '@/pages/Admin/Product/pages/Form';
 import ProductList from '@/pages/Admin/Product/pages/List';
 import Profile from '@/pages/Profile';
 import { selectIsLoggedIn } from '@/store/auth/authSlice';
@@ -37,6 +38,14 @@ const protectedRoutes: RouteObject[] = [
         element: (
           <AdminLayout>
             <ProductList />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: 'product/add',
+        element: (
+          <AdminLayout>
+            <ProductForm />
           </AdminLayout>
         ),
       },

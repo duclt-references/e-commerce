@@ -19,7 +19,7 @@ export const cartService = {
     });
   },
   getCartDetail(id: string) {
-    return apiService.get(`${API_PATH.product}/${id}`);
+    return apiService.get(`${API_PATH.products}/${id}`);
   },
   addProductToCart(item: IProductAddToCart) {
     return apiService.post(API_PATH.cartItems, item);
