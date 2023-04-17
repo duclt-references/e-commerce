@@ -108,31 +108,34 @@ const ProductForm = () => {
           <label htmlFor="description">
             Mô tả <span>*</span>
           </label>
-          <textarea name="description" id="description"></textarea>
+          <textarea id="description" {...register('description')}></textarea>
+          <p className="error">{errors.description?.message}</p>
         </div>
         <div className="form__group">
           <label htmlFor="thumbnail" className="label">
-            Thumbnail
+            Thumbnail <span>*</span>
           </label>
           <div className="row form-file">
             <label htmlFor="thumbnail" className="label label-file">
               <FontAwesomeIcon icon={faCloudArrowUp} />
               <span>Select a thumbnail</span>
             </label>
-            <input id="thumbnail" type="file" />
+            <input id="thumbnail" type="file" {...register('thumbnail')} />
           </div>
+          <p className="error">{errors.thumbnail?.message}</p>
         </div>
         <div className="form__group">
           <label htmlFor="images" className="label">
-            Images
+            Images <span>*</span>
           </label>
           <div className="row form-file">
             <label htmlFor="images" className="label label-file">
               <FontAwesomeIcon icon={faCloudArrowUp} />
               <span>Select images</span>
             </label>
-            <input id="images" type="file" multiple />
+            <input id="images" type="file" multiple {...register('images')} />
           </div>
+          <p className="error">{errors.images?.message}</p>
         </div>
         <Button label="Thêm" type="submit" />
       </form>

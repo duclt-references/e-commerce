@@ -10,9 +10,15 @@ export const addProductSchema = yup.object({
     .string()
     .required('Mô tả là bắt buộc')
     .min(5, 'Độ dài từ 5 - 160 ký tự'),
-  price: yup.number().required('Giá là bắt buộc').min(0, 'Giá lớn hơn 0'),
+  price: yup
+    .number()
+    .typeError('Giá chưa đúng định dạng')
+    .required('Giá là bắt buộc')
+    .min(0, 'Giá lớn hơn 0'),
   stock: yup
     .number()
+    .typeError('Số lượng là số nguyên')
+    .integer('Số lượng là số nguyên')
     .required('Số lượng là bắt buộc')
     .min(0, 'Số lượng lớn hơn 0'),
   brand: yup

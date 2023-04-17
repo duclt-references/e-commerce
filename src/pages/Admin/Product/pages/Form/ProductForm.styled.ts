@@ -32,6 +32,11 @@ export const ProductFormStyle = styled.div`
         outline: none;
       }
 
+      .error {
+        margin-top: 8px;
+        color: rgb(247, 43, 63);
+      }
+
       .form-file {
         position: relative;
         align-items: start;
