@@ -6,9 +6,11 @@ class SetupAxios {
   constructor(baseURL: string, contentType?: string) {
     this.api = axios.create({
       baseURL: baseURL,
-      headers: {
-        'Content-Type': contentType || 'application/json',
-      },
+      headers: contentType
+        ? {
+            'Content-Type': contentType,
+          }
+        : {},
     });
 
     this.api.interceptors.response.use(

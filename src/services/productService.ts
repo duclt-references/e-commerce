@@ -1,6 +1,6 @@
 import { API_PATH } from '@/config/path';
 import { apiService } from '@/httpRequest';
-import { IProductListConfig } from '@/types/product.type';
+import { IProduct, IProductListConfig } from '@/types/product.type';
 
 export const productService = {
   getProducts(params: IProductListConfig) {
@@ -11,5 +11,9 @@ export const productService = {
 
   getProductDetail(id: string) {
     return apiService.get(`${API_PATH.products}/${id}`);
+  },
+
+  addProduct(data: IProduct | FormData) {
+    return apiService.post(`${API_PATH.products}`, data);
   },
 };

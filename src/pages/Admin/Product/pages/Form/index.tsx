@@ -1,8 +1,10 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { categoryService } from '@/services/categoryService';
+import { productService } from '@/services/productService';
 import { ICategory } from '@/types/category.type';
 import { addProductSchema } from '@/utils/admin-rules';
+import { convertToSlug, randomId } from '@/utils/common';
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,8 +15,8 @@ import { ProductFormStyle } from './ProductForm.styled';
 interface IProps {
   title: string;
   description: string;
-  price: number;
-  stock: number;
+  price: string;
+  stock: string;
   brand: string;
   category: string;
   thumbnail: string;
@@ -23,8 +25,8 @@ interface IProps {
 
 const ProductForm = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const [thumbnail, setThumbnail] = useState<FileList | null | string>('');
-  const [images, setImages] = useState<FileList[] | null | string[]>([]);
+  const [thumbnail, setThumbnail] = useState<FileList | null | string>(null);
+  const [images, setImages] = useState<FileList[] | null | string[]>(null);
 
   useEffect(() => {
     const getAllCategories = async () => {
@@ -42,14 +44,59 @@ const ProductForm = () => {
 
   const {
     register,
+    setError,
     formState: { errors },
     handleSubmit,
+    clearErrors,
   } = useForm<IProps>({
     resolver: yupResolver(addProductSchema),
   });
 
   const onSubmit = (data: IProps) => {
-    console.log(data);
+    let isValid = true;
+    const formData = new FormData();
+    const thumbnailInput = document.getElementById(
+      'thumbnail'
+    ) as HTMLInputElement;
+
+    if (
+      thumbnailInput &&
+      thumbnailInput.files &&
+      thumbnailInput.files.length > 0
+    ) {
+      for (const file of thumbnailInput.files) {
+        formData.append('thumbnail', file);
+      }
+    } else {
+      setError('thumbnail', {
+        type: 'filetype',
+        message: 'Ảnh bìa là bắt buộc',
+      });
+      isValid = false;
+    }
+    const imagesInput = document.getElementById('images') as HTMLInputElement;
+    if (imagesInput && imagesInput.files && imagesInput.files.length > 0) {
+      for (const file of imagesInput.files) {
+        formData.append('images', file);
+      }
+    } else {
+      setError('images', {
+        type: 'filetype',
+        message: 'Ảnh là bắt buộc',
+      });
+      isValid = false;
+    }
+    if (!isValid) return;
+    const id = randomId(15);
+    formData.append('id', id);
+    formData.append('title', data.title);
+    formData.append('description', data.description);
+    formData.append('stock', data.stock);
+    formData.append('price', data.price);
+    formData.append('category', data.category);
+    formData.append('brand', data.brand);
+    formData.append('slug', convertToSlug(data.title, id));
+    productService.addProduct(formData);
   };
 
   const handleUploadThumbnail = async (
@@ -57,7 +104,7 @@ const ProductForm = () => {
   ): Promise<void> => {
     if (!event.target.files) return;
     const fileLoaded = URL.createObjectURL(event.target.files[0]);
-
+    clearErrors('thumbnail');
     setThumbnail(fileLoaded);
   };
 
@@ -65,12 +112,11 @@ const ProductForm = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
     if (!event.target.files) return;
-    console.log(event.target.files);
     const fileUpload: string[] = [];
     Array.from(event.target.files).forEach((file) => {
       fileUpload.push(URL.createObjectURL(file));
     });
-
+    clearErrors('images');
     setImages(fileUpload);
   };
 
@@ -118,15 +164,15 @@ const ProductForm = () => {
           <label htmlFor="city" className="label">
             Danh mục<span>*</span>
           </label>
-          <select name="city" id="city" className="form-select">
+          <select id="city" className="form-select" {...register('category')}>
             <option value="">Chọn danh mục</option>
             {categories.map((category: ICategory) => (
-              <option key={category.id} value={category.slug}>
+              <option key={category.id} value={category.id}>
                 {category.name}
               </option>
             ))}
           </select>
-          <span className="error"></span>
+          <p className="error">{errors.category?.message}</p>
         </div>
         <div className="form__group">
           <label htmlFor="description">
@@ -147,7 +193,7 @@ const ProductForm = () => {
             <input
               id="thumbnail"
               type="file"
-              {...register('thumbnail')}
+              {...register('thumbnail', { required: true })}
               onChange={handleUploadThumbnail}
             />
           </div>
@@ -169,7 +215,7 @@ const ProductForm = () => {
               id="images"
               type="file"
               multiple
-              {...register('images')}
+              {...register('images', { required: true })}
               onChange={handleUploadImages}
             />
           </div>
