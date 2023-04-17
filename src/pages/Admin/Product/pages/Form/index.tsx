@@ -6,7 +6,7 @@ import { addProductSchema } from '@/utils/admin-rules';
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ProductFormStyle } from './ProductForm.styled';
 
@@ -22,7 +22,9 @@ interface IProps {
 }
 
 const ProductForm = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [thumbnail, setThumbnail] = useState<FileList | null | string>('');
+  const [images, setImages] = useState<FileList[] | null | string[]>([]);
 
   useEffect(() => {
     const getAllCategories = async () => {
@@ -48,6 +50,28 @@ const ProductForm = () => {
 
   const onSubmit = (data: IProps) => {
     console.log(data);
+  };
+
+  const handleUploadThumbnail = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
+    if (!event.target.files) return;
+    const fileLoaded = URL.createObjectURL(event.target.files[0]);
+
+    setThumbnail(fileLoaded);
+  };
+
+  const handleUploadImages = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
+    if (!event.target.files) return;
+    console.log(event.target.files);
+    const fileUpload: string[] = [];
+    Array.from(event.target.files).forEach((file) => {
+      fileUpload.push(URL.createObjectURL(file));
+    });
+
+    setImages(fileUpload);
   };
 
   return (
@@ -120,7 +144,15 @@ const ProductForm = () => {
               <FontAwesomeIcon icon={faCloudArrowUp} />
               <span>Select a thumbnail</span>
             </label>
-            <input id="thumbnail" type="file" {...register('thumbnail')} />
+            <input
+              id="thumbnail"
+              type="file"
+              {...register('thumbnail')}
+              onChange={handleUploadThumbnail}
+            />
+          </div>
+          <div className="img-preview">
+            {thumbnail ? <img src={thumbnail as string} alt="" /> : <></>}
           </div>
           <p className="error">{errors.thumbnail?.message}</p>
         </div>
@@ -133,9 +165,20 @@ const ProductForm = () => {
               <FontAwesomeIcon icon={faCloudArrowUp} />
               <span>Select images</span>
             </label>
-            <input id="images" type="file" multiple {...register('images')} />
+            <input
+              id="images"
+              type="file"
+              multiple
+              {...register('images')}
+              onChange={handleUploadImages}
+            />
           </div>
           <p className="error">{errors.images?.message}</p>
+          <div className="img-preview">
+            {images?.map((image, index) => (
+              <img key={index} src={image as string} alt="" />
+            ))}
+          </div>
         </div>
         <Button label="Thêm" type="submit" />
       </form>

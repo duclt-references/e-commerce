@@ -32,6 +32,12 @@ export const ProductFormStyle = styled.div`
         outline: none;
       }
 
+      .img-preview img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+      }
+
       .error {
         margin-top: 8px;
         color: rgb(247, 43, 63);
