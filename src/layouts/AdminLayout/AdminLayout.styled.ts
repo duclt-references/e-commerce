@@ -8,6 +8,7 @@ export const AdminLayoutStyle = styled.div`
     width: calc(100% - 300px);
     height: 100%;
     padding: 15px;
+    overflow-y: scroll;
 
     .head {
       padding: 16px 32px;

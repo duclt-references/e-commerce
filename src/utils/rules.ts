@@ -54,6 +54,4 @@ export const paymentSchema = yup.object({
     .max(160, 'Độ dài từ 5 - 160 ký tự'),
 });
 
-export type UserSchema = yup.InferType<typeof userSchema>;
-
 export type Schema = yup.InferType<typeof schema>;
