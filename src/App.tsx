@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import GlobalStyle from './assets/styles/global.styled';
 import { useRouteElements } from './routes/useRouteElements';
 
@@ -8,6 +9,7 @@ const App = () => {
     <>
       <GlobalStyle />
       {routeElements}
+      <ToastContainer />
     </>
   );
 };

@@ -1,4 +1,6 @@
+import { IMAGE_URL } from '@/config/path';
 import { ModalContext } from '@/contexts/modal.context';
+import { useAppSelector } from '@/hooks/useRedux';
 import { selectIsLoggedIn } from '@/store/auth/authSlice';
 import { IProduct } from '@/types/product.type';
 import { convertToSlug, formatCurrency } from '@/utils/common';
@@ -11,7 +13,6 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ProductStyle } from './Product.styled';
-import { useAppSelector } from '@/hooks/useRedux';
 
 interface IProductType {
   product: IProduct;
@@ -23,7 +24,7 @@ const Product = ({ product, isShowSlide }: IProductType) => {
   const { setVisible, setProduct } = useContext(ModalContext);
   const slug = convertToSlug(product.title, product.id);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/${product.id}/`;
+  const imageURL = `${IMAGE_URL}/${product.id}/`;
 
   const handleBuyNow = () => {
     setVisible(true);

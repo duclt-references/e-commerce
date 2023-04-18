@@ -21,6 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalStyle } from './Modal.styled';
+import { IMAGE_URL } from '@/config/path';
 
 const Modal = () => {
   const { quantity, visible, setVisible, product, setProduct, setQuantity } =
@@ -48,8 +49,8 @@ const Modal = () => {
       } else {
         dispatch(
           fetchUpdateProductToCart({
-            order_product_id: existProduct.orderId,
-            quantity: existProduct.quantity + quantity,
+            order_product_id: existProduct['orderId'],
+            quantity: existProduct['quantity'] + quantity,
           })
         );
       }
@@ -59,7 +60,7 @@ const Modal = () => {
 
   if (product === null) return <></>;
 
-  const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/${product.id}/`;
+  const imageURL = `${IMAGE_URL}/${product.id}/`;
 
   const handleCloseModal = () => {
     setVisible(false);

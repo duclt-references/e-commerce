@@ -1,4 +1,5 @@
 import { ShoppingBag } from '@/assets/images';
+import { IMAGE_URL, PATH } from '@/config/path';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { selectCurrentUser } from '@/store/auth/authSlice';
 import {
@@ -14,10 +15,7 @@ import { ICartItem } from '@/types/cart.type';
 import { formatCurrency } from '@/utils/common';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { PATH } from '../../../../../config/path';
 import { CartStyle } from './Cart.styled';
-
-const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}/`;
 
 const Cart = () => {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -65,7 +63,7 @@ const Cart = () => {
                   <div className="clitem__img">
                     <a href="./detail.html">
                       <img
-                        src={imageURL + product.id + '/' + product.thumbnail}
+                        src={`${IMAGE_URL}/${product.id}/${product.thumbnail}`}
                         alt=""
                       />
                     </a>

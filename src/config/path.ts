@@ -20,3 +20,5 @@ export const API_PATH = {
   cartItems: 'collections/order_products/records',
   categories: 'collections/categories/records',
 };
+
+export const IMAGE_URL = process.env.PRODUCT_IMAGE_END_POINT;

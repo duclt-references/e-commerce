@@ -1,6 +1,6 @@
 import Input from '@/components/Input';
 import HttpStatusCode from '@/config/httpStatusCode';
-import { PATH } from '@/config/path';
+import { IMAGE_URL, PATH } from '@/config/path';
 import { useAppSelector } from '@/hooks/useRedux';
 import { cartService } from '@/services/cartService';
 import { selectCurrentUser } from '@/store/auth/authSlice';
@@ -13,8 +13,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { PaymentStyle } from './Payment.style';
-
-const imageURL = process.env.PRODUCT_IMAGE_END_POINT;
 
 const Payment = () => {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -227,7 +225,7 @@ const Payment = () => {
                   <div className="list-item__left">
                     <div className="list-item__left-img">
                       <img
-                        src={`${imageURL}/${item.id}/${item.thumbnail}`}
+                        src={`${IMAGE_URL}/${item.id}/${item.thumbnail}`}
                         alt=""
                       />
                       <span className="number">{item.quantity}</span>
