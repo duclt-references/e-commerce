@@ -3,11 +3,12 @@ import { ButtonStyle } from './Button.styled';
 interface IButton {
   label?: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  classStyle?: string;
 }
 
-const Button = ({ label, type = 'button' }: IButton) => {
+const Button = ({ label, classStyle, type = 'button' }: IButton) => {
   return (
-    <ButtonStyle>
+    <ButtonStyle className={classStyle}>
       <button type={type}>{label}</button>
     </ButtonStyle>
   );

@@ -1,5 +1,7 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
+import HttpStatusCode from '@/config/httpStatusCode';
+import { PATH } from '@/config/path';
 import { categoryService } from '@/services/categoryService';
 import { productService } from '@/services/productService';
 import { ICategory } from '@/types/category.type';
@@ -11,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ProductFormStyle } from './ProductForm.styled';
 
 interface IProps {
@@ -31,6 +33,7 @@ const ProductForm = () => {
   const [thumbnail, setThumbnail] = useState<FileList | null | string>(null);
   const [images, setImages] = useState<FileList[] | null | string[]>(null);
   const { id } = useParams();
+  const navigation = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -81,7 +84,7 @@ const ProductForm = () => {
     resolver: yupResolver(addProductSchema),
   });
 
-  const onSubmit = (data: IProps) => {
+  const onSubmit = async (data: IProps) => {
     let isValid = true;
     const formData = new FormData();
     const thumbnailInput = document.getElementById(
@@ -126,13 +129,19 @@ const ProductForm = () => {
     formData.append('price', data.price);
     formData.append('category', data.category);
     formData.append('brand', data.brand);
+
+    let response = null;
     if (id) {
-      productService.updateProduct(id, formData);
+      response = await productService.updateProduct(id, formData);
     } else {
       const productId = randomId(15);
       formData.append('id', productId);
       formData.append('slug', convertToSlug(data.title, productId));
-      productService.addProduct(formData);
+      response = await productService.addProduct(formData);
+    }
+
+    if (response?.status === HttpStatusCode.OK) {
+      navigation(`${PATH.adminProduct}`);
     }
   };
 
@@ -276,7 +285,11 @@ const ProductForm = () => {
             ))}
           </div>
         </div>
-        <Button label="Thêm" type="submit" />
+        <Button
+          classStyle="form__btn"
+          label={id ? 'Sửa' : 'Thêm'}
+          type="submit"
+        />
       </form>
     </ProductFormStyle>
   );

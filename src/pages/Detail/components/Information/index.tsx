@@ -32,7 +32,6 @@ const Information = ({ product }: IProps) => {
   };
 
   const handleAddToCart = () => {
-    console.log(123);
     setVisible(true);
     setQuantity(currentQuantity);
     setProduct(product);

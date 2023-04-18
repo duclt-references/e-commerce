@@ -75,5 +75,9 @@ export const ProductFormStyle = styled.div`
         color: #333;
       }
     }
+
+    &__btn {
+      justify-content: start;
+    }
   }
 `;

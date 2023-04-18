@@ -30,6 +30,7 @@ export const ProductStyle = styled.div`
     width: 40px;
     height: 40px;
     margin-right: 8px;
+    object-fit: cover;
   }
 
   .table .action {
