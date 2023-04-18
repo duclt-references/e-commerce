@@ -1,3 +1,4 @@
+import { IMAGE_URL } from '@/config/path';
 import { ModalContext } from '@/contexts/modal.context';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import {
@@ -21,7 +22,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalStyle } from './Modal.styled';
-import { IMAGE_URL } from '@/config/path';
 
 const Modal = () => {
   const { quantity, visible, setVisible, product, setProduct, setQuantity } =

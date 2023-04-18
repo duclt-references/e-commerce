@@ -33,4 +33,7 @@ export const cartService = {
   updateCart(cart: ICart) {
     return apiService.patch(`${API_PATH.cart}/${cart.id}`, cart);
   },
+  addCart(cart: ICart) {
+    return apiService.post(`${API_PATH.cart}`, cart);
+  },
 };

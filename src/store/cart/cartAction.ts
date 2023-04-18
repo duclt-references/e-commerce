@@ -30,6 +30,16 @@ const getCartItems = async (userId: string | undefined) => {
       }
     );
     return { orderId, products };
+  } else {
+    const res = await cartService.getCarts({
+      filter: `(user_id='${userId}'&&status='pending')`,
+    });
+    if (res.data.items.length > 0) {
+      return {
+        orderId: res.data.items[0].id,
+        products: [],
+      };
+    }
   }
   return {
     orderId: '',
@@ -79,6 +89,32 @@ export const fetchUpdateProductToCart = createAsyncThunk(
       const state = getState() as RootState;
       const data = await getCartItems(state.auth.currentUser?.id);
       return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const fetchAddCart = createAsyncThunk(
+  'cart/add',
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const response = await cartService.getCarts({
+        filter: `(user_id='${userId}')&&status='pending'`,
+      });
+      if (response.data.items.length === 0) {
+        const res = await cartService.addCart({
+          user_id: userId,
+          status: 'pending',
+        });
+
+        return res.data;
+      }
+      return null;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

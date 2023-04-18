@@ -2,6 +2,7 @@ import { ICartItem } from '@/types/cart.type';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '..';
 import {
+  fetchAddCart,
   fetchAddProductToCart,
   fetchCartItems,
   fetchUpdateProductToCart,
@@ -54,6 +55,9 @@ const cartSlice = createSlice({
         state.cartTotalAmount = cartTotalAmount;
       }
     );
+    builder.addCase(fetchAddCart.fulfilled, (state, { payload }) => {
+      state.cartId = payload.id;
+    });
   },
 });
 

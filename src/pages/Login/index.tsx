@@ -29,7 +29,8 @@ const Login = () => {
     if (isLoggedIn) {
       navigate(PATH.home);
     }
-  }, [navigate, isLoggedIn]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
 
   const onSubmit = (data: ILogin) => {
     dispatch(fetchLogin(data));

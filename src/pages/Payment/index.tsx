@@ -1,9 +1,10 @@
 import Input from '@/components/Input';
 import HttpStatusCode from '@/config/httpStatusCode';
 import { IMAGE_URL, PATH } from '@/config/path';
-import { useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { cartService } from '@/services/cartService';
 import { selectCurrentUser } from '@/store/auth/authSlice';
+import { fetchAddCart } from '@/store/cart/cartAction';
 import { ICart, ICartItem } from '@/types/cart.type';
 import { IPayment } from '@/types/payment.type';
 import { formatCurrency } from '@/utils/common';
@@ -11,7 +12,8 @@ import { paymentSchema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { PaymentStyle } from './Payment.style';
 
 const Payment = () => {
@@ -26,6 +28,8 @@ const Payment = () => {
     0
   );
   const [cart, setCart] = useState<ICart | null>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -108,6 +112,11 @@ const Payment = () => {
     });
     if (response.status === HttpStatusCode.OK) {
       setCartItems([]);
+      dispatch(fetchAddCart(currentUser?.id as string));
+      toast.success('Payment Successfully!!!', { autoClose: 2000 });
+      setTimeout(() => {
+        navigate(PATH.home);
+      }, 3000);
     }
   };
 
