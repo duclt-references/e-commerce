@@ -80,7 +80,7 @@ const Header = () => {
                   <Link to={PATH.home}>Giới thiệu</Link>
                 </li>
                 <li className="mlist__item">
-                  <Link to="/collections">
+                  <Link to={PATH.products}>
                     Sản phẩm <i className="fas fa-sort-down"></i>
                   </Link>
                   <ul className="mlist__item-submenu">

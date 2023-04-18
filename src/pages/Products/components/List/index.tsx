@@ -1,7 +1,33 @@
+import Pagination from '@/components/Pagination';
 import Product from '@/components/Product';
+import { productService } from '@/services/productService';
+import { IProduct } from '@/types/product.type';
+import { useEffect, useState } from 'react';
 import { ListingStyle } from './Listing.styled';
 
 const Listing = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+
+  useEffect(() => {
+    const getNewProducts = async () => {
+      try {
+        const params = {
+          page,
+          sort: '-created',
+        };
+        const response = await productService.getProducts(params);
+        setProducts(response.data?.items);
+        setTotalPages(response.data?.totalPages);
+      } catch (error) {
+        console.log('Failed to fetch product list: ', error);
+      }
+    };
+
+    getNewProducts();
+  }, [page]);
+
   return (
     <ListingStyle>
       <div className="container-ct">
@@ -220,42 +246,15 @@ const Listing = () => {
           </div>
         </div>
         <div className="list col-ct">
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
-          <Product isShowSlide />
+          {products.length > 0 ? (
+            products.map((product) => (
+              <Product key={product.id} product={product} isShowSlide={false} />
+            ))
+          ) : (
+            <></>
+          )}
         </div>
-        <div className="pagination">
-          <ul>
-            <li className="pagination--none">
-              <a href="/">
-                <i className="las la-angle-left"></i>
-              </a>
-            </li>
-            <li className="pagination--select">
-              <a href="/">1</a>
-            </li>
-            <li>
-              <a href="/">2</a>
-            </li>
-            <li>
-              <a href="/">
-                <i className="las la-angle-right"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </div>
     </ListingStyle>
   );

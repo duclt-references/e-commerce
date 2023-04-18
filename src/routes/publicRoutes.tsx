@@ -4,9 +4,9 @@ import MainLayout from '@/layouts/MainLayout';
 import Detail from '@/pages/Detail';
 import Login from '@/pages/Login';
 import Payment from '@/pages/Payment';
+import Products from '@/pages/Products';
 import Register from '@/pages/Register';
 import { RouteObject } from 'react-router';
-import Collection from '../pages/Collection';
 import Home from '../pages/Home';
 
 const publicRoutes: RouteObject[] = [
@@ -19,7 +19,7 @@ const publicRoutes: RouteObject[] = [
       },
       {
         path: PATH.products,
-        element: <Collection />,
+        element: <Products />,
       },
       {
         path: PATH.productDetail,

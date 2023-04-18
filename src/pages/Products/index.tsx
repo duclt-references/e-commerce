@@ -2,7 +2,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import Like from '@/components/Like';
 import Listing from './components/List';
 
-const Collection = () => {
+const Products = () => {
   return (
     <>
       <Breadcrumb />
@@ -16,4 +16,4 @@ const Collection = () => {
   );
 };
 
-export default Collection;
+export default Products;
