@@ -16,4 +16,8 @@ export const productService = {
   addProduct(data: IProduct | FormData) {
     return apiService.post(`${API_PATH.products}`, data);
   },
+
+  updateProduct(id: string, data: IProduct | FormData) {
+    return apiService.patch(`${API_PATH.products}/${id}`, data);
+  },
 };

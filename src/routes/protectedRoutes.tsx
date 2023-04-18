@@ -49,6 +49,14 @@ const protectedRoutes: RouteObject[] = [
           </AdminLayout>
         ),
       },
+      {
+        path: 'product/edit/:id',
+        element: (
+          <AdminLayout>
+            <ProductForm />
+          </AdminLayout>
+        ),
+      },
     ],
   },
 ];

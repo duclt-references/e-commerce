@@ -3,6 +3,7 @@ import Input from '@/components/Input';
 import { categoryService } from '@/services/categoryService';
 import { productService } from '@/services/productService';
 import { ICategory } from '@/types/category.type';
+import { IProduct } from '@/types/product.type';
 import { addProductSchema } from '@/utils/admin-rules';
 import { convertToSlug, randomId } from '@/utils/common';
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { ProductFormStyle } from './ProductForm.styled';
 
 interface IProps {
@@ -25,8 +27,34 @@ interface IProps {
 
 const ProductForm = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
+  const [currentProduct, setCurrentProduct] = useState<IProduct | null>(null);
   const [thumbnail, setThumbnail] = useState<FileList | null | string>(null);
   const [images, setImages] = useState<FileList[] | null | string[]>(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      const getProductById = async () => {
+        try {
+          const response = await productService.getProductDetail(id as string);
+          setCurrentProduct(response.data);
+          setValue('title', response.data.title);
+          setValue('price', response.data.price);
+          setValue('stock', response.data.stock);
+          setValue('description', response.data.description);
+          setValue('category', response.data.category);
+          setValue('brand', response.data.brand);
+          setValue('thumbnail', response.data.thumbnail);
+          setValue('images', response.data.images);
+        } catch (error) {
+          console.log('Failed to fetch product list: ', error);
+        }
+      };
+
+      getProductById();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   useEffect(() => {
     const getAllCategories = async () => {
@@ -47,6 +75,7 @@ const ProductForm = () => {
     setError,
     formState: { errors },
     handleSubmit,
+    setValue,
     clearErrors,
   } = useForm<IProps>({
     resolver: yupResolver(addProductSchema),
@@ -68,11 +97,13 @@ const ProductForm = () => {
         formData.append('thumbnail', file);
       }
     } else {
-      setError('thumbnail', {
-        type: 'filetype',
-        message: 'Ảnh bìa là bắt buộc',
-      });
-      isValid = false;
+      if (currentProduct === null) {
+        setError('thumbnail', {
+          type: 'filetype',
+          message: 'Ảnh bìa là bắt buộc',
+        });
+        isValid = false;
+      }
     }
     const imagesInput = document.getElementById('images') as HTMLInputElement;
     if (imagesInput && imagesInput.files && imagesInput.files.length > 0) {
@@ -80,23 +111,29 @@ const ProductForm = () => {
         formData.append('images', file);
       }
     } else {
-      setError('images', {
-        type: 'filetype',
-        message: 'Ảnh là bắt buộc',
-      });
-      isValid = false;
+      if (currentProduct === null) {
+        setError('images', {
+          type: 'filetype',
+          message: 'Ảnh là bắt buộc',
+        });
+        isValid = false;
+      }
     }
     if (!isValid) return;
-    const id = randomId(15);
-    formData.append('id', id);
     formData.append('title', data.title);
     formData.append('description', data.description);
     formData.append('stock', data.stock);
     formData.append('price', data.price);
     formData.append('category', data.category);
     formData.append('brand', data.brand);
-    formData.append('slug', convertToSlug(data.title, id));
-    productService.addProduct(formData);
+    if (id) {
+      productService.updateProduct(id, formData);
+    } else {
+      const productId = randomId(15);
+      formData.append('id', productId);
+      formData.append('slug', convertToSlug(data.title, productId));
+      productService.addProduct(formData);
+    }
   };
 
   const handleUploadThumbnail = async (
@@ -122,7 +159,7 @@ const ProductForm = () => {
 
   return (
     <ProductFormStyle>
-      <h2 className="head">Add Product</h2>
+      <h2 className="head">{id ? 'Edit Product' : 'Add Product'}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
         <Input
           name="title"
@@ -130,6 +167,7 @@ const ProductForm = () => {
           placeholder="Tiêu đề"
           type="text"
           required
+          defaultValue={currentProduct?.title}
           register={register}
           errorMessage={errors.title?.message}
         />
@@ -137,6 +175,7 @@ const ProductForm = () => {
           name="price"
           label="Giá"
           placeholder="Giá"
+          defaultValue={currentProduct?.price}
           type="text"
           required
           register={register}
@@ -146,6 +185,7 @@ const ProductForm = () => {
           name="stock"
           label="Số lượng"
           placeholder="Số lượng"
+          defaultValue={currentProduct?.stock}
           type="text"
           required
           register={register}
@@ -155,6 +195,7 @@ const ProductForm = () => {
           name="brand"
           label="Thương hiệu"
           placeholder="Thương hiệu"
+          defaultValue={currentProduct?.brand}
           type="text"
           required
           register={register}
@@ -164,7 +205,12 @@ const ProductForm = () => {
           <label htmlFor="city" className="label">
             Danh mục<span>*</span>
           </label>
-          <select id="city" className="form-select" {...register('category')}>
+          <select
+            id="category"
+            className="form-select"
+            value={currentProduct?.category}
+            {...register('category')}
+          >
             <option value="">Chọn danh mục</option>
             {categories.map((category: ICategory) => (
               <option key={category.id} value={category.id}>
@@ -178,7 +224,11 @@ const ProductForm = () => {
           <label htmlFor="description">
             Mô tả <span>*</span>
           </label>
-          <textarea id="description" {...register('description')}></textarea>
+          <textarea
+            id="description"
+            {...register('description')}
+            defaultValue={currentProduct?.description}
+          ></textarea>
           <p className="error">{errors.description?.message}</p>
         </div>
         <div className="form__group">
