@@ -45,7 +45,8 @@ export const TableStyle = styled.div`
     color: #fff;
   }
 
-  .table .action a {
+  .table .action a,
+  .table .action button {
     width: 30px;
     height: 30px;
     display: flex;

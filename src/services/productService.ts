@@ -20,4 +20,8 @@ export const productService = {
   updateProduct(id: string, data: IProduct | FormData) {
     return apiService.patch(`${API_PATH.products}/${id}`, data);
   },
+
+  deleteProduct(id: string) {
+    return apiService.delete(`${API_PATH.products}/${id}`);
+  },
 };

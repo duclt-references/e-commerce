@@ -6,6 +6,9 @@ export const PATH = {
   login: '/login',
   register: '/register',
   payment: '/payment',
+  adminProduct: 'admin/product',
+  adminAddProduct: 'admin/product/add',
+  adminEditProduct: 'admin/product/edit',
 };
 
 export const API_PATH = {

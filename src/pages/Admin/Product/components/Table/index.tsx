@@ -1,9 +1,11 @@
 import Pagination from '@/components/Pagination';
+import { PATH } from '@/config/path';
 import { productService } from '@/services/productService';
 import { IProduct } from '@/types/product.type';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { TableStyle } from './Table.styled';
 
 const imageURL = `${process.env.PRODUCT_IMAGE_END_POINT}`;
@@ -30,6 +32,10 @@ const Table = () => {
 
     getAllProducts();
   }, [page]);
+
+  const handleRemoveProduct = (id: string) => {
+    productService.deleteProduct(id);
+  };
 
   return (
     <TableStyle>
@@ -65,12 +71,18 @@ const Table = () => {
                 <td>{product.stock}</td>
                 <td>
                   <div className="action">
-                    <a href="/" className="btn-edit">
+                    <Link
+                      to={`../../${PATH.adminEditProduct}/${product.id}`}
+                      className="btn-edit"
+                    >
                       <FontAwesomeIcon icon={faEdit} />
-                    </a>
-                    <a href="/" className="btn-remove">
+                    </Link>
+                    <button
+                      className="btn-remove"
+                      onClick={() => handleRemoveProduct(product.id)}
+                    >
                       <FontAwesomeIcon icon={faTrash} />
-                    </a>
+                    </button>
                   </div>
                 </td>
               </tr>
