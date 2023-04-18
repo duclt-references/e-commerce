@@ -1,3 +1,5 @@
+import { APP_URL, PATH } from '@/config/path';
+import { Link } from 'react-router-dom';
 import { SidebarStyle } from './Sidebar.style';
 
 const Sidebar = () => {
@@ -7,9 +9,9 @@ const Sidebar = () => {
       <div className="sidebar__menu">
         <ul className="menu">
           <li className="menu__item menu__item--active">
-            <a href="/">Product</a>
+            <Link to={`${APP_URL}/${PATH.adminProduct}`}>Product</Link>
           </li>
-          <li className="menu__item">
+          {/* <li className="menu__item">
             <a href="/">User</a>
             <ul className="submenu">
               <li className="submenu__item">
@@ -19,7 +21,7 @@ const Sidebar = () => {
                 <a href="/">Order</a>
               </li>
             </ul>
-          </li>
+          </li> */}
         </ul>
       </div>
     </SidebarStyle>

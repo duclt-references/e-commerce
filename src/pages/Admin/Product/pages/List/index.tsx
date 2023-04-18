@@ -2,7 +2,7 @@ import Pagination from '@/components/Pagination';
 import { IMAGE_URL, PATH } from '@/config/path';
 import { productService } from '@/services/productService';
 import { IProduct } from '@/types/product.type';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -36,7 +36,12 @@ const ProductList = () => {
   };
   return (
     <ProductStyle>
-      <h2 className="head">User List</h2>
+      <h2 className="head">
+        Product List
+        <Link to={`../../${PATH.adminAddProduct}`} className="head__btn">
+          <FontAwesomeIcon icon={faPlus} /> Add
+        </Link>
+      </h2>
       <div className="table">
         <table>
           <thead>

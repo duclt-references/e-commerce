@@ -18,6 +18,20 @@ export const AdminLayoutStyle = styled.div`
       font-size: 20px;
       color: #fff;
       font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &__btn {
+        background-color: #fff;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: #ccc;
+        }
+      }
     }
   }
 `;

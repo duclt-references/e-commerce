@@ -22,3 +22,4 @@ export const API_PATH = {
 };
 
 export const IMAGE_URL = process.env.PRODUCT_IMAGE_END_POINT;
+export const APP_URL = process.env.APP_URL;
