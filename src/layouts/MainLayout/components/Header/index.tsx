@@ -1,6 +1,7 @@
 import { Logo, ShoppingBag } from '@/assets/images';
 import { PATH } from '@/config/path';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { categoryService } from '@/services/categoryService';
 import {
   logout,
   selectCurrentUser,
@@ -8,9 +9,10 @@ import {
 } from '@/store/auth/authSlice';
 import { fetchCartItems } from '@/store/cart/cartAction';
 import { selectCartItems } from '@/store/cart/cartSlice';
+import { ICategory } from '@/types/category.type';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderStyle from './Header.styled';
 import Cart from './components/Cart';
@@ -20,6 +22,20 @@ const Header = () => {
   const currentUser = useAppSelector(selectCurrentUser);
   const cartItems = useAppSelector(selectCartItems);
   const dispatch = useAppDispatch();
+  const [categories, setCategories] = useState<ICategory[]>([]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await categoryService.getCategories({});
+        setCategories(response.data.items);
+      } catch (error) {
+        console.log('Failed to fetch product list: ', error);
+      }
+    };
+
+    getCategories();
+  }, []);
 
   useEffect(() => {
     dispatch(fetchCartItems(currentUser?.id));
@@ -84,18 +100,13 @@ const Header = () => {
                     Sản phẩm <i className="fas fa-sort-down"></i>
                   </Link>
                   <ul className="mlist__item-submenu">
-                    <li>
-                      <a href="./category.html">Giày Training & Gym </a>
-                    </li>
-                    <li>
-                      <a href="./category.html">Giày Basketball </a>
-                    </li>
-                    <li>
-                      <a href="./category.html">Giày Running </a>
-                    </li>
-                    <li>
-                      <a href="./category.html">Giày Jodan </a>
-                    </li>
+                    {categories.map((category: ICategory) => (
+                      <li key={category.id}>
+                        <Link to={`${PATH.products}/${category.slug}`}>
+                          {category.name}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </li>
                 <li className="mlist__item">
@@ -157,18 +168,13 @@ const Header = () => {
                   <i className="fas fa-minus"></i>
                 </span>
                 <ul>
-                  <li>
-                    <a href="./category.html">Giày Training & Gym</a>
-                  </li>
-                  <li>
-                    <a href="./category.html">Giày Basketball</a>
-                  </li>
-                  <li>
-                    <a href="/">Giày Running</a>
-                  </li>
-                  <li>
-                    <a href="/">Giày Jodan</a>
-                  </li>
+                  {categories.map((category: ICategory) => (
+                    <li key={category.id}>
+                      <Link to={`${PATH.products}/${category.slug}`}>
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </li>
               <li className="nlmenu__item">

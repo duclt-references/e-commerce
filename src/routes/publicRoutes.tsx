@@ -22,6 +22,10 @@ const publicRoutes: RouteObject[] = [
         element: <Products />,
       },
       {
+        path: PATH.productsByCategory,
+        element: <Products />,
+      },
+      {
         path: PATH.productDetail,
         element: <Detail />,
       },
