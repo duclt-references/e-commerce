@@ -1,4 +1,4 @@
-import { IMAGE_URL } from '@/config/path';
+import { IMAGE_URL, PATH } from '@/config/path';
 import { ModalContext } from '@/contexts/modal.context';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import {
@@ -21,6 +21,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { Link } from 'react-router-dom';
 import { ModalStyle } from './Modal.styled';
 
 const Modal = () => {
@@ -102,10 +103,10 @@ const Modal = () => {
             <div className="title">Tổng tiền</div>
             <div className="price">{cartTotalAmount}$</div>
             <div className="btn">
-              <a href="./cart.html">
-                <i className="fas fa-shopping-basket"></i>
+              <Link to={PATH.payment}>
+                <FontAwesomeIcon icon={faShoppingBasket} />
                 Tới giỏ hảng
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import Input from '@/components/Input';
 import { PATH } from '@/config/path';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { fetchLogin } from '@/store/auth/authAction';
-import { selectIsLoggedIn } from '@/store/auth/authSlice';
+import { selectCurrentUser, selectIsLoggedIn } from '@/store/auth/authSlice';
 import { ILogin } from '@/types/auth.type';
 import { schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,11 +23,12 @@ const Login = () => {
   });
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const currentUser = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(PATH.home);
+      navigate(currentUser?.role === 'admin' ? PATH.adminProduct : PATH.home);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);

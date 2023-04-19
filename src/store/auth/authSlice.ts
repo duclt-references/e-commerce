@@ -46,6 +46,7 @@ const authSlice = createSlice({
         email: payload.record.email,
         phone: payload.record.phone,
         address: payload.record.address,
+        role: payload.record.role,
       };
       state.accessToken = payload.token;
       localStorage.setItem('access_token', payload.token);
@@ -70,6 +71,7 @@ const authSlice = createSlice({
         email: payload.record.email,
         phone: payload.record.phone,
         address: payload.record.address,
+        role: payload.record.role,
       };
       state.accessToken = payload.token;
       localStorage.setItem('access_token', payload.token);

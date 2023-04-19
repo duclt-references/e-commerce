@@ -121,10 +121,9 @@ const Cart = () => {
           </div>
         </>
       ) : (
-        <a href="./cart.html" className="cart-icon">
+        <Link to={PATH.order} className="cart-icon">
           <img src={ShoppingBag} alt="" />
-          <span className="total-product">0</span>
-        </a>
+        </Link>
       )}
     </CartStyle>
   );

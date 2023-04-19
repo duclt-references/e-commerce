@@ -1,4 +1,4 @@
-import { Logo, ShoppingBag } from '@/assets/images';
+import { Logo } from '@/assets/images';
 import { PATH } from '@/config/path';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { categoryService } from '@/services/categoryService';
@@ -8,7 +8,6 @@ import {
   selectIsLoggedIn,
 } from '@/store/auth/authSlice';
 import { fetchCartItems } from '@/store/cart/cartAction';
-import { selectCartItems } from '@/store/cart/cartSlice';
 import { ICategory } from '@/types/category.type';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +19,6 @@ import Cart from './components/Cart';
 const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const currentUser = useAppSelector(selectCurrentUser);
-  const cartItems = useAppSelector(selectCartItems);
   const dispatch = useAppDispatch();
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [search, setSearch] = useState<string>('');
@@ -132,16 +130,7 @@ const Header = () => {
                   </Link>
                 </div>
               </div>
-              {isLoggedIn ? (
-                <Cart />
-              ) : (
-                <a href="./cart.html" className="cart-icon">
-                  <img src={ShoppingBag} alt="" />
-                  <span className="total-product">
-                    {cartItems ? cartItems.length : 0}
-                  </span>
-                </a>
-              )}
+              <Cart />
             </div>
           </div>
         </div>
