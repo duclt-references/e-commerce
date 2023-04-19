@@ -4,6 +4,8 @@ import AdminLayout from '@/layouts/AdminLayout';
 import MainLayout from '@/layouts/MainLayout';
 import ProductForm from '@/pages/Admin/Product/pages/Form';
 import ProductList from '@/pages/Admin/Product/pages/List';
+import Order from '@/pages/Order';
+import Payment from '@/pages/Payment';
 import Profile from '@/pages/Profile';
 import { selectIsLoggedIn } from '@/store/auth/authSlice';
 import { Navigate, Outlet, RouteObject } from 'react-router';
@@ -24,6 +26,14 @@ const protectedRoutes: RouteObject[] = [
         element: (
           <MainLayout>
             <Profile />
+          </MainLayout>
+        ),
+      },
+      {
+        path: PATH.order,
+        element: (
+          <MainLayout>
+            <Order />
           </MainLayout>
         ),
       },
@@ -58,6 +68,10 @@ const protectedRoutes: RouteObject[] = [
         ),
       },
     ],
+  },
+  {
+    element: <Payment />,
+    path: 'payment',
   },
 ];
 

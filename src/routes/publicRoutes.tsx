@@ -3,7 +3,6 @@ import AuthLayout from '@/layouts/AuthLayout';
 import MainLayout from '@/layouts/MainLayout';
 import Detail from '@/pages/Detail';
 import Login from '@/pages/Login';
-import Payment from '@/pages/Payment';
 import Products from '@/pages/Products';
 import Register from '@/pages/Register';
 import { RouteObject } from 'react-router';
@@ -43,10 +42,6 @@ const publicRoutes: RouteObject[] = [
         element: <Register />,
       },
     ],
-  },
-  {
-    element: <Payment />,
-    path: 'payment',
   },
 ];
 

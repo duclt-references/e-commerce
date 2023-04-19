@@ -67,9 +67,10 @@ const updateState = (products: []) => {
     0
   );
   const cartTotalAmount = products.reduce(
-    (sum: number, item: ICartItem) => sum + item.price * item.discount,
+    (sum: number, item: ICartItem) => sum + (item.price * item.discount) / 100,
     0
   );
+
   return { cartTotalQuantity, cartTotalAmount };
 };
 

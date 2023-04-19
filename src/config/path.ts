@@ -3,6 +3,7 @@ export const PATH = {
   products: '/products',
   productsByCategory: '/products/:category',
   productDetail: '/:slug',
+  order: '/order',
   profile: '/user/profile',
   login: '/login',
   register: '/register',
