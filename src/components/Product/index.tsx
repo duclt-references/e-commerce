@@ -20,7 +20,6 @@ interface IProductType {
 }
 
 const Product = ({ product, isShowSlide }: IProductType) => {
-  const percent = Math.round(product.discount);
   const { setVisible, setProduct } = useContext(ModalContext);
   const slug = convertToSlug(product.title, product.id);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
@@ -34,7 +33,7 @@ const Product = ({ product, isShowSlide }: IProductType) => {
   return (
     <ProductStyle className="product">
       <div className="product__img">
-        <span className="product__img-promotion">-{percent}%</span>
+        <span className="product__img-promotion">-{product.discount}%</span>
         <Link to={`/${slug}`} className="product__img-img">
           <img src={imageURL + product.thumbnail} alt="" />
         </Link>
@@ -73,7 +72,7 @@ const Product = ({ product, isShowSlide }: IProductType) => {
         <div className="product__info-branch">{product.brand}</div>
         <div className="product__info-price">
           <span className="price--new">
-            {formatCurrency(product.price * percent)}$
+            {formatCurrency((product.price * (100 - product.discount)) / 100)}$
           </span>
           <span className="price--old">{formatCurrency(product.price)}$</span>
         </div>

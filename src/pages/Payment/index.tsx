@@ -113,10 +113,12 @@ const Payment = () => {
     if (response.status === HttpStatusCode.OK) {
       setCartItems([]);
       dispatch(fetchAddCart(currentUser?.id as string));
-      toast.success('Payment Successfully!!!', { autoClose: 2000 });
+      toast.success('Đặt hàng thành công!!!', { autoClose: 1000 });
       setTimeout(() => {
         navigate(PATH.home);
-      }, 3000);
+      }, 2000);
+    } else {
+      toast.error('Đặt hàng thất bại!!!', { autoClose: 1000 });
     }
   };
 

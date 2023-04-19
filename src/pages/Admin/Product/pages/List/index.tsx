@@ -37,7 +37,7 @@ const ProductList = () => {
   const handleRemoveProduct = async (id: string) => {
     const response = await productService.deleteProduct(id);
     if (response.status === HttpStatusCode.NO_CONTENT) {
-      toast.success('Delete Success!!!', { autoClose: 2000 });
+      toast.success('Delete Success!!!', { autoClose: 1000 });
       const response = await productService.getProducts(params);
       setProducts(response.data.items);
     }

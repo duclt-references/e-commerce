@@ -14,12 +14,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { ProductFormStyle } from './ProductForm.styled';
 
 interface IProps {
   title: string;
   description: string;
   price: string;
+  discount: string;
   stock: string;
   brand: string;
   category: string;
@@ -44,6 +46,7 @@ const ProductForm = () => {
           setValue('title', response.data.title);
           setValue('price', response.data.price);
           setValue('stock', response.data.stock);
+          setValue('discount', response.data.discount);
           setValue('description', response.data.description);
           setValue('category', response.data.category);
           setValue('brand', response.data.brand);
@@ -129,6 +132,7 @@ const ProductForm = () => {
     formData.append('price', data.price);
     formData.append('category', data.category);
     formData.append('brand', data.brand);
+    formData.append('discount', data.discount);
 
     let response = null;
     if (id) {
@@ -141,7 +145,17 @@ const ProductForm = () => {
     }
 
     if (response?.status === HttpStatusCode.OK) {
-      navigation(`${PATH.adminProduct}`);
+      toast.success(
+        id ? 'Cập nhật sản phẩm thành công!!!' : 'Thêm sản phẩm thành công!!!',
+        {
+          autoClose: 1000,
+        }
+      );
+      setTimeout(() => {
+        navigation(`${PATH.adminProduct}`);
+      }, 2000);
+    } else {
+      toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
     }
   };
 
@@ -189,6 +203,16 @@ const ProductForm = () => {
           required
           register={register}
           errorMessage={errors.price?.message}
+        />
+        <Input
+          name="discount"
+          label="Khuyến mại"
+          placeholder="Khuyến mại"
+          defaultValue={currentProduct?.discount}
+          type="text"
+          required
+          register={register}
+          errorMessage={errors.discount?.message}
         />
         <Input
           name="stock"

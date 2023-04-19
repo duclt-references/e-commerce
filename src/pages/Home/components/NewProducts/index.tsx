@@ -14,6 +14,7 @@ const NewProducts = () => {
       try {
         const params = {
           limit: 10,
+          sort: '-created',
         };
         const response = await productService.getProducts(params);
         setProducts(response.data?.items);

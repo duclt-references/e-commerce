@@ -1,6 +1,7 @@
 import Breadcrumb from '@/components/Breadcrumb';
 import Like from '@/components/Like';
 import Modal from '@/components/Modal';
+import { ModalProvider } from '@/contexts/modal.context';
 import { productService } from '@/services/productService';
 import { IProduct } from '@/types/product.type';
 import { getIdFromSlug } from '@/utils/common';
@@ -8,8 +9,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Banner from './components/Banner';
 import Information from './components/Information';
-import Tabs from './components/Tabs';
-import { ModalProvider } from '@/contexts/modal.context';
 
 const Detail = () => {
   const { slug } = useParams();
@@ -41,7 +40,7 @@ const Detail = () => {
         <Information product={product as IProduct} />
       )}
       <Banner />
-      <Tabs />
+      {/* <Tabs /> */}
       <Like />
     </ModalProvider>
   );
