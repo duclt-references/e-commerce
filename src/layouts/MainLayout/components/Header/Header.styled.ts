@@ -144,7 +144,7 @@ const HeaderStyle = styled.header`
           height: 40px;
           z-index: 10;
           line-height: 40px;
-          top: 40px;
+          top: 30px;
           right: 5px;
           box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.4);
           input {
@@ -152,9 +152,9 @@ const HeaderStyle = styled.header`
             width: 100%;
             padding: 0 40px 0 10px;
           }
-          i {
+          svg {
             position: absolute;
-            top: 10px;
+            top: 15px;
             font-size: 16px;
             right: 10px;
           }

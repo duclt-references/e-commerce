@@ -23,6 +23,7 @@ const Header = () => {
   const cartItems = useAppSelector(selectCartItems);
   const dispatch = useAppDispatch();
   const [categories, setCategories] = useState<ICategory[]>([]);
+  const [search, setSearch] = useState<string>('');
 
   useEffect(() => {
     const getCategories = async () => {
@@ -121,10 +122,14 @@ const Header = () => {
               <div className="header__action-search">
                 <FontAwesomeIcon icon={faSearch} />
                 <div className="hsearch">
-                  <input type="text" placeholder="Tìm kiếm..." />
-                  <a href="./search.html">
-                    <i className="fas fa-search"></i>
-                  </a>
+                  <input
+                    type="text"
+                    placeholder="Tìm kiếm..."
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <Link to={`${PATH.products}?search=${search}`}>
+                    <FontAwesomeIcon icon={faSearch} />
+                  </Link>
                 </div>
               </div>
               {isLoggedIn ? (

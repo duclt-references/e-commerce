@@ -17,10 +17,11 @@ const Listing = () => {
   useEffect(() => {
     const getNewProducts = async () => {
       try {
+        const search = searchParams.get('search');
         const params = {
           page,
           sort: searchParams.get('sort') === 'desc' ? '-created' : 'created',
-          filter: '',
+          filter: search ? `(title~'${search}')` : '',
         };
         if (category) {
           params.filter = `(category.slug='${category}')`;
