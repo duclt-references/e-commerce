@@ -1,15 +1,45 @@
 import Breadcrumb from '@/components/Breadcrumb';
 import { IMAGE_URL, PATH } from '@/config/path';
-import { useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import {
+  fetchRemoveProductFromCart,
+  fetchUpdateProductToCart,
+} from '@/store/cart/cartAction';
 import { selectCartItems, selectCartTotalAmount } from '@/store/cart/cartSlice';
 import { ICartItem } from '@/types/cart.type';
 import { formatCurrency } from '@/utils/common';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { OrderStyle } from './Order.styled';
 
 const Order = () => {
   const cartItems = useAppSelector(selectCartItems);
   const cartTotalAmount = useAppSelector(selectCartTotalAmount);
+  const dispatch = useAppDispatch();
+
+  const increase = (product: ICartItem) => {
+    if (product.quantity + 1 > product.stock) return;
+    dispatch(
+      fetchUpdateProductToCart({
+        order_product_id: product.orderId,
+        quantity: product.quantity + 1,
+      })
+    );
+  };
+
+  const decrease = (product: ICartItem) => {
+    if (product.quantity - 1 == 0) {
+      dispatch(fetchRemoveProductFromCart(product.orderId));
+      return;
+    }
+    dispatch(
+      fetchUpdateProductToCart({
+        order_product_id: product.orderId,
+        quantity: product.quantity - 1,
+      })
+    );
+  };
 
   return (
     <OrderStyle>
@@ -46,13 +76,19 @@ const Order = () => {
                 </div>
                 <div className="clitem__number">
                   <div className="number-count">
-                    <span className="num-decrease">
-                      <i className="fas fa-minus"></i>
-                    </span>
+                    <button
+                      className="num-decrease"
+                      onClick={() => decrease(item)}
+                    >
+                      <FontAwesomeIcon icon={faMinus} />
+                    </button>
                     <input type="number" value={item.quantity} />
-                    <span className="num-increase">
-                      <i className="fas fa-plus"></i>
-                    </span>
+                    <button
+                      className="num-increase"
+                      onClick={() => increase(item)}
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
                   </div>
                   <div className="number-remove">
                     <a href="/">Xoá</a>

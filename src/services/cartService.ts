@@ -36,4 +36,7 @@ export const cartService = {
   addCart(cart: ICart) {
     return apiService.post(`${API_PATH.cart}`, cart);
   },
+  removeProductFromCart(id: string) {
+    return apiService.delete(`${API_PATH.cartItems}/${id}`);
+  },
 };

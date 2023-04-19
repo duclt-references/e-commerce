@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { selectCurrentUser } from '@/store/auth/authSlice';
 import {
   fetchCartItems,
+  fetchRemoveProductFromCart,
   fetchUpdateProductToCart,
 } from '@/store/cart/cartAction';
 import {
@@ -39,7 +40,10 @@ const Cart = () => {
   };
 
   const decrease = (product: ICartItem) => {
-    if (product.quantity - 1 == 0) return;
+    if (product.quantity - 1 == 0) {
+      dispatch(fetchRemoveProductFromCart(product.orderId));
+      return;
+    }
     dispatch(
       fetchUpdateProductToCart({
         order_product_id: product.orderId,

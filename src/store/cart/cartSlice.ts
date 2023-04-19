@@ -5,6 +5,7 @@ import {
   fetchAddCart,
   fetchAddProductToCart,
   fetchCartItems,
+  fetchRemoveProductFromCart,
   fetchUpdateProductToCart,
 } from './cartAction';
 
@@ -58,6 +59,17 @@ const cartSlice = createSlice({
     builder.addCase(fetchAddCart.fulfilled, (state, { payload }) => {
       state.cartId = payload.id;
     });
+    builder.addCase(
+      fetchRemoveProductFromCart.fulfilled,
+      (state, { payload }) => {
+        const { cartTotalQuantity, cartTotalAmount } = updateState(
+          payload.products
+        );
+        state.cartItems = payload.products;
+        state.cartTotalQuantity = cartTotalQuantity;
+        state.cartTotalAmount = cartTotalAmount;
+      }
+    );
   },
 });
 
@@ -67,7 +79,8 @@ const updateState = (products: []) => {
     0
   );
   const cartTotalAmount = products.reduce(
-    (sum: number, item: ICartItem) => sum + (item.price * item.discount) / 100,
+    (sum: number, item: ICartItem) =>
+      sum + (item.price * item.quantity * item.discount) / 100,
     0
   );
 

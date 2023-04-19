@@ -124,3 +124,21 @@ export const fetchAddCart = createAsyncThunk(
     }
   }
 );
+
+export const fetchRemoveProductFromCart = createAsyncThunk(
+  'cart/removeItem',
+  async (itemId: string, { getState, rejectWithValue }) => {
+    try {
+      await cartService.removeProductFromCart(itemId);
+      const state = getState() as RootState;
+      const data = await getCartItems(state.auth.currentUser?.id);
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
