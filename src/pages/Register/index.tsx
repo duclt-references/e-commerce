@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 type TFormData = Pick<Schema, 'email' | 'password' | 'name' | 'phone'>;
 const registerSchema = schema.pick(['email', 'password', 'name', 'phone']);
@@ -27,7 +28,10 @@ const Register = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(PATH.home);
+      toast.success('Đăng ký thành công!!!', { autoClose: 1000 });
+      setTimeout(() => {
+        navigate(PATH.home);
+      }, 2000);
     }
   }, [navigate, isLoggedIn]);
 

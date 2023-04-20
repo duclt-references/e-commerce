@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const registerSchema = schema.pick(['email', 'password']);
 
@@ -28,7 +29,10 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate(currentUser?.role === 'admin' ? PATH.adminProduct : PATH.home);
+      toast.success('Đăng nhập thành công!!!', { autoClose: 1000 });
+      setTimeout(() => {
+        navigate(currentUser?.role === 'admin' ? PATH.adminProduct : PATH.home);
+      }, 2000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
