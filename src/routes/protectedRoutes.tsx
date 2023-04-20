@@ -7,13 +7,18 @@ import ProductList from '@/pages/Admin/Product/pages/List';
 import Order from '@/pages/Order';
 import Payment from '@/pages/Payment';
 import Profile from '@/pages/Profile';
-import { selectIsLoggedIn } from '@/store/auth/authSlice';
+import { selectCurrentUser, selectIsLoggedIn } from '@/store/auth/authSlice';
 import { Navigate, Outlet, RouteObject } from 'react-router';
 
 function ProtectedRoute() {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
+}
+
+function AdminRoute() {
+  const currentUser = useAppSelector(selectCurrentUser);
+  return currentUser?.role === 'admin' ? <Outlet /> : <Navigate to="/" />;
 }
 
 const protectedRoutes: RouteObject[] = [
@@ -44,28 +49,34 @@ const protectedRoutes: RouteObject[] = [
     element: <ProtectedRoute />,
     children: [
       {
-        path: 'product',
-        element: (
-          <AdminLayout>
-            <ProductList />
-          </AdminLayout>
-        ),
-      },
-      {
-        path: 'product/add',
-        element: (
-          <AdminLayout>
-            <ProductForm />
-          </AdminLayout>
-        ),
-      },
-      {
-        path: 'product/edit/:id',
-        element: (
-          <AdminLayout>
-            <ProductForm />
-          </AdminLayout>
-        ),
+        path: '',
+        element: <AdminRoute />,
+        children: [
+          {
+            path: 'product',
+            element: (
+              <AdminLayout>
+                <ProductList />
+              </AdminLayout>
+            ),
+          },
+          {
+            path: 'product/add',
+            element: (
+              <AdminLayout>
+                <ProductForm />
+              </AdminLayout>
+            ),
+          },
+          {
+            path: 'product/edit/:id',
+            element: (
+              <AdminLayout>
+                <ProductForm />
+              </AdminLayout>
+            ),
+          },
+        ],
       },
     ],
   },
