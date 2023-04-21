@@ -4,6 +4,7 @@ import { PATH } from '@/config/path';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { fetchLogin } from '@/store/auth/authAction';
 import { selectCurrentUser, selectIsLoggedIn } from '@/store/auth/authSlice';
+import { fetchAddCart } from '@/store/cart/cartAction';
 import { ILogin } from '@/types/auth.type';
 import { schema } from '@/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -30,6 +31,7 @@ const Login = () => {
   useEffect(() => {
     if (isLoggedIn) {
       toast.success('Đăng nhập thành công!!!', { autoClose: 1000 });
+      dispatch(fetchAddCart(currentUser?.id as string));
       setTimeout(() => {
         navigate(currentUser?.role === 'admin' ? PATH.adminProduct : PATH.home);
       }, 2000);

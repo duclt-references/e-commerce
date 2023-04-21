@@ -57,7 +57,7 @@ const Modal = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, product]);
+  }, [product]);
 
   if (product === null) return <></>;
 

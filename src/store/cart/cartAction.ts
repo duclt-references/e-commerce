@@ -111,7 +111,6 @@ export const fetchAddCart = createAsyncThunk(
           user_id: userId,
           status: 'pending',
         });
-
         return res.data;
       }
       return null;

@@ -9,7 +9,7 @@ const App = () => {
     <>
       <GlobalStyle />
       {routeElements}
-      <ToastContainer />
+      <ToastContainer limit={5} />
     </>
   );
 };

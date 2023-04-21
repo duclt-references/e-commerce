@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { toast } from 'react-toastify';
 import { TokenService } from './tokenService';
 
 class SetupAxios {
@@ -20,14 +21,10 @@ class SetupAxios {
         });
       },
       (error) => {
-        if ([401, 403].includes(error.response.status)) {
+        if (!error.response || [401, 403].includes(error.response.status)) {
           // do some things
+          toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
           return;
-        }
-        if (!error.response) {
-          return new Promise((resolve, reject) => {
-            reject(error);
-          });
         }
         return Promise.reject(error.response.data);
       }
