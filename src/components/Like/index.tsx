@@ -1,6 +1,7 @@
 import Product from '@/components/Product';
 import { IProduct } from '@/types/product.type';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { productService } from '../../services/productService';
 import { LikeStyle } from './Like.styled';
@@ -15,10 +16,9 @@ const Like = () => {
           limit: 10,
         };
         const response = await productService.getProducts(params);
-
         setProducts(response.data?.items);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 

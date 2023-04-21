@@ -4,6 +4,7 @@ import { productService } from '@/services/productService';
 import { IProduct } from '@/types/product.type';
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Filter from '../Filter';
 import { ListingStyle } from './Listing.styled';
 
@@ -16,21 +17,21 @@ const Listing = () => {
 
   useEffect(() => {
     const getNewProducts = async () => {
+      const search = searchParams.get('search');
+      const params = {
+        page,
+        sort: searchParams.get('sort') === 'desc' ? '-created' : 'created',
+        filter: search ? `(title~'${search}')` : '',
+      };
+      if (category) {
+        params.filter = `(category.slug='${category}')`;
+      }
       try {
-        const search = searchParams.get('search');
-        const params = {
-          page,
-          sort: searchParams.get('sort') === 'desc' ? '-created' : 'created',
-          filter: search ? `(title~'${search}')` : '',
-        };
-        if (category) {
-          params.filter = `(category.slug='${category}')`;
-        }
         const response = await productService.getProducts(params);
         setProducts(response.data?.items);
         setTotalPages(response.data?.totalPages);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 

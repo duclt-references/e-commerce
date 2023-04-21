@@ -29,7 +29,6 @@ export const fetchRegister = createAsyncThunk(
   ) => {
     try {
       const response = await authService.register(data);
-
       return response.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

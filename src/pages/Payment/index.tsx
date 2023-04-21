@@ -59,7 +59,7 @@ const Payment = () => {
           setCartItems(products);
         }
       } catch (error) {
-        console.log('Failed to fetch cart items: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
     getCartItems();
@@ -78,7 +78,7 @@ const Payment = () => {
           return <>Loading</>;
         }
       } catch (error) {
-        console.log('Failed to fetch cart: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 
@@ -100,25 +100,30 @@ const Payment = () => {
   });
 
   const onSubmit = async (data: IPayment) => {
-    const response = await cartService.updateCart({
-      id: cart?.id,
-      user_id: cart?.user_id,
-      order_email: data.email,
-      order_phone: data.phone,
-      order_name: data.name,
-      order_address: data.address,
-      order_date: new Date().toLocaleDateString(),
-      status: 'paid',
-    });
-    if (response.status === HttpStatusCode.OK) {
-      setCartItems([]);
-      dispatch(fetchAddCart(currentUser?.id as string));
-      toast.success('Đặt hàng thành công!!!', { autoClose: 1000 });
-      setTimeout(() => {
-        navigate(PATH.home);
-      }, 2000);
-    } else {
-      toast.error('Đặt hàng thất bại!!!', { autoClose: 1000 });
+    try {
+      const response = await cartService.updateCart({
+        id: cart?.id,
+        user_id: cart?.user_id,
+        order_email: data.email,
+        order_phone: data.phone,
+        order_name: data.name,
+        order_address: data.address,
+        order_date: new Date().toLocaleDateString(),
+        status: 'paid',
+      });
+      if (response.status === HttpStatusCode.OK) {
+        setCartItems([]);
+        dispatch(fetchAddCart(currentUser?.id as string));
+        toast.success('Đặt hàng thành công!!!', { autoClose: 1000 });
+        setTimeout(() => {
+          navigate(PATH.home);
+        }, 2000);
+      } else {
+        toast.error('Đặt hàng thất bại!!!', { autoClose: 1000 });
+      }
+    } catch (error) {
+      toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
+      return;
     }
   };
 

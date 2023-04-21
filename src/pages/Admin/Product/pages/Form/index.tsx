@@ -53,7 +53,7 @@ const ProductForm = () => {
           setValue('thumbnail', response.data.thumbnail);
           setValue('images', response.data.images);
         } catch (error) {
-          console.log('Failed to fetch product list: ', error);
+          toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
         }
       };
 
@@ -69,7 +69,7 @@ const ProductForm = () => {
         const response = await categoryService.getCategories(params);
         setCategories(response.data.items);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 
@@ -135,13 +135,17 @@ const ProductForm = () => {
     formData.append('discount', data.discount);
 
     let response = null;
-    if (id) {
-      response = await productService.updateProduct(id, formData);
-    } else {
-      const productId = randomId(15);
-      formData.append('id', productId);
-      formData.append('slug', convertToSlug(data.title, productId));
-      response = await productService.addProduct(formData);
+    try {
+      if (id) {
+        response = await productService.updateProduct(id, formData);
+      } else {
+        const productId = randomId(15);
+        formData.append('id', productId);
+        formData.append('slug', convertToSlug(data.title, productId));
+        response = await productService.addProduct(formData);
+      }
+    } catch (error) {
+      toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
     }
 
     if (response?.status === HttpStatusCode.OK) {

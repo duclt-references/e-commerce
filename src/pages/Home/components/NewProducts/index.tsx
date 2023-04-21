@@ -2,6 +2,7 @@ import Product from '@/components/Product';
 import { productService } from '@/services/productService';
 import { IProduct } from '@/types/product.type';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Heading from '../Heading';
 import { NewProductsStyle } from './NewProducts.styled';
@@ -19,7 +20,7 @@ const NewProducts = () => {
         const response = await productService.getProducts(params);
         setProducts(response.data?.items);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 

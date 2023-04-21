@@ -5,6 +5,7 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { FilterStyle } from './Filter.styled';
 
 const Filter = () => {
@@ -16,7 +17,7 @@ const Filter = () => {
         const response = await categoryService.getCategories({});
         setCategories(response.data.items);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 

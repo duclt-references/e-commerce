@@ -9,42 +9,45 @@ const getCartItems = async (userId: string | undefined) => {
     filter: `(order_id.user_id='${userId}'&&order_id.status='pending')`,
     expand: 'product_id,order_id',
   };
-  const response = await cartService.getCartItems(params);
+  try {
+    const response = await cartService.getCartItems(params);
+    if (response.data.items.length > 0) {
+      const items = response.data.items;
+      const orderId = items[0].order_id;
 
-  if (response.data.items.length > 0) {
-    const items = response.data.items;
-    const orderId = items[0].order_id;
-
-    const products = items.map(
-      (value: {
-        id: string;
-        expand: { product_id: object };
-        quantity: number;
-      }) => {
-        const { expand: expandProduct } = value;
+      const products = items.map(
+        (value: {
+          id: string;
+          expand: { product_id: object };
+          quantity: number;
+        }) => {
+          const { expand: expandProduct } = value;
+          return {
+            orderId: value.id,
+            quantity: value.quantity,
+            ...expandProduct.product_id,
+          };
+        }
+      );
+      return { orderId, products };
+    } else {
+      const res = await cartService.getCarts({
+        filter: `(user_id='${userId}'&&status='pending')`,
+      });
+      if (res.data.items.length > 0) {
         return {
-          orderId: value.id,
-          quantity: value.quantity,
-          ...expandProduct.product_id,
+          orderId: res.data.items[0].id,
+          products: [],
         };
       }
-    );
-    return { orderId, products };
-  } else {
-    const res = await cartService.getCarts({
-      filter: `(user_id='${userId}'&&status='pending')`,
-    });
-    if (res.data.items.length > 0) {
-      return {
-        orderId: res.data.items[0].id,
-        products: [],
-      };
     }
+    return {
+      orderId: '',
+      products: [],
+    };
+  } catch (error) {
+    console.log(error.message);
   }
-  return {
-    orderId: '',
-    products: [],
-  };
 };
 
 export const fetchCartItems = createAsyncThunk(

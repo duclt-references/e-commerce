@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CategoryStyle } from './Category.styled';
 
@@ -20,16 +21,16 @@ const Category = ({ category, title }: IProps) => {
 
   useEffect(() => {
     const getNewProducts = async () => {
+      const params = {
+        limit: 10,
+        filter: `(category.slug='${category}')`,
+      };
       try {
-        const params = {
-          limit: 10,
-          filter: `(category.slug='${category}')`,
-        };
         const response = await productService.getProducts(params);
 
         setProducts(response.data?.items);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 

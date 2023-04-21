@@ -13,6 +13,7 @@ import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import HeaderStyle from './Header.styled';
 import Cart from './components/Cart';
 
@@ -29,7 +30,7 @@ const Header = () => {
         const response = await categoryService.getCategories({});
         setCategories(response.data.items);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 

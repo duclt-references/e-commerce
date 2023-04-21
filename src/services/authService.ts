@@ -13,7 +13,11 @@ export const authService = {
     passwordConfirm?: string;
   }) {
     body.passwordConfirm = body.password;
-    await apiService.post(API_PATH.register, body);
+    try {
+      await apiService.post(API_PATH.register, body);
+    } catch (error) {
+      console.log(error.message);
+    }
 
     return this.login({
       identity: body.email,

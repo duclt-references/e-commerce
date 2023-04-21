@@ -26,7 +26,7 @@ const ProductList = () => {
         setProducts(response.data.items);
         setTotalPages(response.data.totalPages);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
 
@@ -35,11 +35,15 @@ const ProductList = () => {
   }, [page]);
 
   const handleRemoveProduct = async (id: string) => {
-    const response = await productService.deleteProduct(id);
-    if (response.status === HttpStatusCode.NO_CONTENT) {
-      toast.success('Delete Success!!!', { autoClose: 1000 });
-      const response = await productService.getProducts(params);
-      setProducts(response.data.items);
+    try {
+      const response = await productService.deleteProduct(id);
+      if (response.status === HttpStatusCode.NO_CONTENT) {
+        toast.success('Delete Success!!!', { autoClose: 1000 });
+        const response = await productService.getProducts(params);
+        setProducts(response.data.items);
+      }
+    } catch (error) {
+      toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
     }
   };
 

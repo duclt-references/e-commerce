@@ -7,6 +7,7 @@ import { IProduct } from '@/types/product.type';
 import { getIdFromSlug } from '@/utils/common';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Banner from './components/Banner';
 import Information from './components/Information';
 
@@ -24,7 +25,7 @@ const Detail = () => {
         setProduct(response.data);
         setLoading(false);
       } catch (error) {
-        console.log('Failed to fetch product: ', error);
+        toast.error('Đã xảy ra lỗi!!!', { autoClose: 1000 });
       }
     };
     getProductDetail();
